@@ -1,0 +1,98 @@
+.header{
+    background-color: red;
+}
+
+.d-flex {
+    margin-right: 35%;
+}
+
+.navbar navbar-expand-lg bg-body-tertiary{
+    background-color: lightgray;
+}
+
+.container-fluid{
+    margin-left: 1%;
+}
+
+.card-container{
+    display: flex;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.card{
+    height: 250px;
+    width: 180px;
+    border: solid gray;
+}
+
+.logo{
+    height: 40px;
+    width: 40px;
+}
+
+
+/* CSS PAGINA DE MARCAS */
+
+.main-pagina-compras{
+    height: 100%;
+}
+
+.card-body{
+    height: 70px;
+
+}
+
+.h-100{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 200px;
+}
+
+.col{
+    margin-top: 5%;
+    margin-left: 8%;
+    justify-items: center;
+    justify-content: center;
+    width: auto;
+    height: 300px;
+}
+
+.card-img-top{
+    height: 40%;
+    width: 100%;
+}
+
+.card-title{
+    font-size: 18px;
+}
+
+.card-text{
+    font-size: 11px;
+}
+
+.botao-compra, .compra{
+    text-decoration: none;
+}
+
+.compra:hover{
+    color: white;
+}
+
+/* CSS MODAL */
+
+.imagem-modal{
+    margin-left: 30%;
+    height: 40%;
+    width: 40%;
+}
+
+.descricao_modal{
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+
+
