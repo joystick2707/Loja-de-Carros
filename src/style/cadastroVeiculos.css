@@ -1,0 +1,25 @@
+.titulo{
+    margin-left: 36%;
+    margin-bottom: 2%;
+}
+
+.mb-3{
+    margin-left: 35%;
+    width: 25%;
+}
+
+
+/* CSS PAGINA DE EDITAR VEICULOS */
+
+.titulo_editaVeiculo{
+    margin-left: 38%;
+    margin-bottom: 3%;
+}
+
+
+/* CSS PARA PAGINA DE REMOVER VEICULOS */
+
+.titulo_removeVeiculo{
+    margin-left: 36.5%;
+    margin-bottom: 3%;
+}
