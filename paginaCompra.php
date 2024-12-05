@@ -4,7 +4,14 @@
     $sql = "SELECT * FROM carrinho";
     $result = $conn->query($sql);
 
-    if($result){
+    if ($result->num_rows > 0) {
+        $carros = $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        $carros = [];
+    }
+
+    /*
+       if($result){
         echo "<script>
                     window.onload = function() {
                         Swal.fire({
@@ -16,7 +23,7 @@
                     }
                   </script>";
     }
-
+    */
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +34,7 @@
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/paginaCompra.css">
     <link rel="stylesheet" href="src/style/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <header class="header">
@@ -66,10 +74,27 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
                     <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
                 </form>
+                <i class="fa-solid fa-cart-shopping" style="margin-right: 2%"></i>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
             </div>
         </div>
     </nav>
 </header>
+<main class="main-pagina-compras">
+    <div class="row row-cols-1 row-cols-md-3 g-4" style="gap: 0%;">
+        <?php foreach ($carros as $carro): ?>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $carro['nome'] ?></h5>
+                        <p class="card-text"><strong>Preço:</strong> R$ <?= $carro['preco'] ?></p>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
