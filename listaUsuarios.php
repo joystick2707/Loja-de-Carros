@@ -1,11 +1,13 @@
 <?php
-include 'conexao.php';
+    include 'conexao.php';
 
-$sql = "SELECT * FROM usuario";
-$resultado = $conn->query($sql);
+    $id = $_POST['id_excluir'];
 
+    $sql_excluir = "DELETE FROM usuario WHERE id = '$id'";
+    $resultado_excluir = $conn->query($sql_excluir);
 
-
+    $sql = "SELECT * FROM usuario";
+    $resultado = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -70,16 +72,17 @@ $resultado = $conn->query($sql);
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Ações</th>
+                <th>Tipo Usuário</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            // Exibe os dados de cada usuário
             while ($row = $resultado->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $row['id'] . "</td>"; // ID
-                echo "<td>" . $row['nome'] . "</td>"; // Nome
-                echo "<td>" . $row['email'] . "</td>"; // Email
+                echo "<td>" . $row['id'] . "</td>";
+                echo "<td>" . $row['nome'] . "</td>";
+                echo "<td>" . $row['email'] . "</td>";
+                echo "<td>" . $row['tipoUsuario'] . "</td>";
                 echo "<td>";
                 echo "<button class='btn btn-warning btn-editar' data-id='" . $row['id'] . "' data-nome='" . $row['nome'] . "' data-email='" . $row['email'] . "'>Editar</button>";
                 echo "<button class='btn btn-danger btn-excluir' data-id='" . $row['id'] . "'>Excluir</button>";
@@ -103,7 +106,7 @@ $resultado = $conn->query($sql);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="editarUsuario.php" method="POST">
+                <form action="editaUsuario.php" method="POST">
                     <input type="hidden" id="idEditar" name="id">
                     <div class="mb-3">
                         <label for="nomeEditar" class="form-label">Nome</label>
@@ -119,7 +122,7 @@ $resultado = $conn->query($sql);
                     </div>
                     <div class="mb-3">
                         <label for="confirmarSenhaEditar" class="form-label">Confirmar Senha</label>
-                        <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmar_senha">
+                        <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmaSenha">
                     </div>
                     <button type="submit" class="btn btn-primary">Salvar alterações</button>
                 </form>
@@ -130,25 +133,29 @@ $resultado = $conn->query($sql);
 
 <!-- Modal de Exclusão -->
 <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title" id="modalExcluirLabel">Excluir Usuário</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Tem certeza de que deseja excluir este usuário?</p>
+                <p class="mb-4">Tem certeza de que deseja excluir este usuário? Esta ação não pode ser desfeita.</p>
                 <form action="listaUsuarios.php" method="POST">
-                    <input type="hidden" id="idExcluir" name="id">
-                    <button type="submit" class="btn btn-danger">Sim, excluir</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <input type="hidden" id="idExcluir" name="id_excluir">
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-danger me-2">Sim, excluir</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Scripts do Bootstrap -->
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 <script>
@@ -176,3 +183,5 @@ $resultado = $conn->query($sql);
 </script>
 </body>
 </html>
+
+
