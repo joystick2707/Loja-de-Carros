@@ -1,9 +1,10 @@
 <?php
 include "conexao.php";
 
-//$query = "SELECT * FROM carros";
-$query = "SELECT carros.id, name, cor,descricao, preco, imagem FROM `carros` join brands on brands.id = carros.marca";
+$query = "SELECT carros.id, name, modelo, cor, descricao, preco, imagem FROM `carros` join brands on brands.id = carros.marca";
 $result = $conn->query($query);
+
+$query_compra = "INSERT INTO carrinho(nome, preco) VALUES (/*INFORMAÇÕES DOS VALORES*/)";
 
 if ($result->num_rows > 0) {
     $carros = $result->fetch_all(MYSQLI_ASSOC);
@@ -21,11 +22,6 @@ $conn->close();
     <title>Carros</title>
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
-    <style>
-        .modal-lg-custom {
-            max-width: 45%;
-        }
-    </style>
 </head>
 <body>
 <header class="header">
@@ -55,8 +51,7 @@ $conn->close();
                             Usuário
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                            <li><a class="dropdown-item" href="editaUsuario.php">Editar</a></li>
-                            <li><a class="dropdown-item" href="removeUsuarios.php">Remover</a></li>
+                            <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -78,9 +73,12 @@ $conn->close();
                     <div class="card-body">
                         <img class="card-img-top" src="img/perfil/<?= basename($carro['imagem']) ?>" alt="foto do carro">
                         <h5 class="card-title"><?= $carro['name'] ?></h5>
-                        <p class="card-text"><?= $carro['descricao'] ?></p>
-                        <p class="card-text"><strong>Preço:</strong> R$ <?= number_format($carro['preco'], 2, ',') ?></p>
-                        <a href="paginaCompra.php id=<?= $carro['id'] ?>" class="btn btn-outline-primary" style="width: 100%">COMPRAR</a>
+                        <h5 class="card-text"><?= $carro['modelo'] ?></h5>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#carroModal"
+                                data-id="<?= $carro['id'] ?>" data-nome="<?= $carro['name'] ?>"
+                                data-descricao="<?= $carro['descricao'] ?>"
+                                data-preco="<?= $carro['preco'] ?>"
+                                data-imagem="img/perfil/<?= basename($carro['imagem']) ?>">Saiba Mais</button>
                     </div>
                 </div>
             </div>
@@ -88,7 +86,48 @@ $conn->close();
     </div>
 </main>
 
+<div class="modal fade" id="carroModal" tabindex="-1" aria-labelledby="carroModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="carroModalLabel">Detalhes do Carro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImagem" src="" alt="Imagem do Carro" class="img-fluid">
+                <h5 id="modalNome"></h5>
+                <p id="modalDescricao"></p>
+                <p><strong>Preço:</strong> R$ <span id="modalPreco"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning">Editar</button>
+                <button type="button" class="btn btn-primary">Comprar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const modal = document.getElementById('carroModal');
+    modal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const nome = button.getAttribute('data-nome');
+        const descricao = button.getAttribute('data-descricao');
+        const preco = button.getAttribute('data-preco');
+        const imagem = button.getAttribute('data-imagem');
+
+        const modalNome = document.getElementById('modalNome');
+        const modalDescricao = document.getElementById('modalDescricao');
+        const modalPreco = document.getElementById('modalPreco');
+        const modalImagem = document.getElementById('modalImagem');
+
+        modalNome.textContent = nome;
+        modalDescricao.textContent = descricao;
+        modalPreco.textContent = preco;
+        modalImagem.src = imagem;
+    });
+</script>
 </body>
 </html>
