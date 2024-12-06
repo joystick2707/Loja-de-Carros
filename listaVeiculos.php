@@ -88,6 +88,7 @@ if ($idExcluir) {
                 <th>Descrição</th>
                 <th>Cor</th>
                 <th>Preço</th>
+                <th>Ações</th>
             </tr>
             </thead>
             <tbody>
@@ -100,8 +101,8 @@ if ($idExcluir) {
                 echo "<td>" . $row['descricao'] . "</td>";
                 echo "<td>" . $row['cor'] . "</td>";
                 echo "<td>" . $row['preco'] . "</td>";
-                echo "<td>";
-                echo "<button class='btn btn-warning btn-editar' data-id='" . $row['id'] . "' data-marca='" . $row['marca'] . "' data-modelo='" . $row['modelo'] . "' data-descricao='" . $row['descricao'] . "' data-cor='" . $row['cor'] . "' data-preco='" . $row['preco'] . "'>Editar</button>";
+                echo "<td class='d-flex justify-content-start'>";
+                echo "<button class='btn btn-warning btn-editar me-2' data-id='" . $row['id'] . "' data-marca='" . $row['marca'] . "' data-modelo='" . $row['modelo'] . "' data-descricao='" . $row['descricao'] . "' data-cor='" . $row['cor'] . "' data-preco='" . $row['preco'] . "'>Editar</button>";
                 echo "<button class='btn btn-danger btn-excluir' data-id='" . $row['id'] . "'>Excluir</button>";
                 echo "</td>";
                 echo "</tr>";
@@ -172,25 +173,29 @@ if ($idExcluir) {
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="modalExcluirLabel">Excluir Veículo</h5>
+                <h5 class="modal-title" id="modalExcluirLabel">Excluir Carro</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Você tem certeza que deseja excluir este veículo?</p>
+                <p>Tem certeza de que deseja excluir este carro?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <form method="POST" id="formExcluir">
+                <form action="listaVeiculos.php" method="POST">
                     <input type="hidden" id="idExcluir" name="id_excluir">
-                    <button type="submit" class="btn btn-danger">Excluir</button>
+                    <button type="submit" class="btn btn-danger">Sim, excluir</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
 <script>
+    const modalExcluir = new bootstrap.Modal(document.getElementById('modalExcluir'));
+    const modalEditar = new bootstrap.Modal(document.getElementById('modalEditar'));
+
     document.querySelectorAll('.btn-editar').forEach(button => {
         button.addEventListener('click', function () {
             const id = this.getAttribute('data-id');
@@ -200,8 +205,6 @@ if ($idExcluir) {
             const cor = this.getAttribute('data-cor');
             const preco = this.getAttribute('data-preco');
 
-            console.log(id, marca, modelo, descricao, cor, preco);
-
             document.getElementById('idEditar').value = id;
             document.getElementById('marcaEditar').value = marca;
             document.getElementById('editarModelo').value = modelo;
@@ -209,7 +212,7 @@ if ($idExcluir) {
             document.getElementById('corEditar').value = cor;
             document.getElementById('editaPreco').value = preco;
 
-            new bootstrap.Modal(document.getElementById('modalEditar')).show();
+            modalEditar.show();
         });
     });
 
@@ -217,7 +220,7 @@ if ($idExcluir) {
         button.addEventListener('click', function () {
             const id = this.getAttribute('data-id');
             document.getElementById('idExcluir').value = id;
-            new bootstrap.Modal(document.getElementById('modalExcluir')).show();
+            modalExcluir.show();
         });
     });
 </script>
