@@ -1,13 +1,28 @@
 <?php
     include 'conexao.php';
 
-    $id = $_POST['id_excluir'];
+    $idExcluir = $_POST['id_excluir'];
 
-    $sql_excluir = "DELETE FROM usuario WHERE id = '$id'";
+    $idEditar = $_POST['idEditar'];
+    $novoNome = $_POST['nome'];
+    $novoEmail = $_POST['email'];
+    $tipoUsuario = $_POST['tipoUsuario'];
+    $senha = $_POST['senha'];
+    $confirmaSenha = $_POST['confirmaSenha'];
+
+    $sqlListagem = "SELECT * FROM usuario";
+    $resultado = $conn->query($sqlListagem);
+
+    $sql_edita = "UPDATE usuario SET nome = '$novoNome', email = '$novoEmail', tipoUsuario = '$tipoUsuario' WHERE id = '$idEditar'";
+    $resultado_edita = $conn->query($sql_edita);
+
+    if($senha == $confirmaSenha){
+        $sqlEditaSenha = "UPDATE usuario SET senha = '$senha' WHERE id = '$idEditar'";
+        $resultadoEditaSenha = $conn->query($sqlEditaSenha);
+    }
+
+    $sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
     $resultado_excluir = $conn->query($sql_excluir);
-
-    $sql = "SELECT * FROM usuario";
-    $resultado = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +32,7 @@
     <title>Listagem de Usuários</title>
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
+
 </head>
 <header class="header">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -71,8 +87,8 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Email</th>
+                <th>Tipo de Usuário</th>
                 <th>Ações</th>
-                <th>Tipo Usuário</th>
             </tr>
             </thead>
             <tbody>
@@ -106,26 +122,40 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="editaUsuario.php" method="POST">
-                    <input type="hidden" id="idEditar" name="id">
+                <form action="listaUsuarios.php" method="POST">
+                    <input type="hidden" id="idEditar" name="idEditar">
+
                     <div class="mb-3">
                         <label for="nomeEditar" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nomeEditar" name="nome" required>
                     </div>
+
                     <div class="mb-3">
                         <label for="emailEditar" class="form-label">Email</label>
                         <input type="email" class="form-control" id="emailEditar" name="email" required>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="tipoUsuarioEditar" class="form-label">Tipo de Usuário</label>
+                        <select class="form-select" id="tipoUsuarioEditar" name="tipoUsuario" required>
+                            <option value="Padrão">Padrão</option>
+                            <option value="ADM">ADM</option>
+                        </select>
+                    </div>
+
                     <div class="mb-3">
                         <label for="senhaEditar" class="form-label">Nova Senha</label>
                         <input type="password" class="form-control" id="senhaEditar" name="senha">
                     </div>
+
                     <div class="mb-3">
                         <label for="confirmarSenhaEditar" class="form-label">Confirmar Senha</label>
                         <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmaSenha">
                     </div>
+
                     <button type="submit" class="btn btn-primary">Salvar alterações</button>
                 </form>
+
             </div>
         </div>
     </div>
@@ -152,9 +182,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
@@ -183,5 +210,3 @@
 </script>
 </body>
 </html>
-
-
