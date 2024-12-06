@@ -1,28 +1,40 @@
 <?php
 include "conexao.php";
+$sqlInfo = "SELECT id, nome FROM usuario";
+$nomeResult = $conn->query($sqlInfo);
+
+if (!$nomeResult) {
+    die("Erro na consulta SQL: " . $conn->error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['excluiUsuario'];
 
-    $sql = "DELETE FROM usuario WHERE id = '$id'";
-    $result = $conn->query($sql);
+    if (!empty($id)) {
+        $sql = "DELETE FROM usuario WHERE id = '$id'";
+        $result = $conn->query($sql);
 
-    $sqlInfo = "SELECT id, nome FROM usuario";
-    $nomeResult = $conn->query($sqlInfo);
-
-    if ($result) {
-        $message = [
-            'title' => 'Sucesso!',
-            'text' => 'Usuário deletado com sucesso!',
-            'icon' => 'success',
-            'button' => 'OK'
-        ];
+        if ($result) {
+            $message = [
+                'title' => 'Sucesso!',
+                'text' => 'Usuário deletado com sucesso!',
+                'icon' => 'success',
+                'button' => 'OK'
+            ];
+        } else {
+            $message = [
+                'title' => 'Erro!',
+                'text' => 'Falha ao deletar usuário',
+                'icon' => 'error',
+                'button' => 'Tentar Novamente'
+            ];
+        }
     } else {
         $message = [
             'title' => 'Erro!',
-            'text' => 'Falha ao deletar usuário',
+            'text' => 'Por favor, selecione um usuário para excluir.',
             'icon' => 'error',
-            'button' => 'Tentar Novamente'
+            'button' => 'OK'
         ];
     }
 
@@ -62,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
+                            <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -71,6 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
                             <li><a class="dropdown-item" href="editaUsuario.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeUsuarios.php">Remover</a></li>
+                            <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
                         </ul>
                     </li>
                 </ul>
