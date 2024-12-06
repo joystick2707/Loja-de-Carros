@@ -1,9 +1,4 @@
 <?php
-
-
-?>
-
-<?php
 include 'conexao.php';
 
 $idExcluir = $_POST['id_excluir'];
@@ -11,11 +6,8 @@ $idExcluir = $_POST['id_excluir'];
 $sqlListagem = "SELECT * FROM carros ";
 $resultado = $conn->query($sqlListagem);
 
-//$sql_edita = "UPDATE usuario SET nome = '$novoNome', email = '$novoEmail', tipoUsuario = '$tipoUsuario' WHERE id = '$idEditar'";
-//$resultado_edita = $conn->query($sql_edita);
-//
-//$sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
-//$resultado_excluir = $conn->query($sql_excluir);
+$sql_excluir = "DELETE FROM carros WHERE id = '$idExcluir'";
+$resultado_excluir = $conn->query($sql_excluir);
 ?>
 
 <!DOCTYPE html>
