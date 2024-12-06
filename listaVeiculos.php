@@ -1,24 +1,27 @@
 <?php
 include 'conexao.php';
 
-$idExcluir = $_POST['id_excluir'];
-$idEditar = $_POST['idEditar'];
+$idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
+$idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
+$marca = isset($_POST['marca']) ? $_POST['marca'] : null;
+$modelo = isset($_POST['modelo']) ? $_POST['modelo'] : null;
+$descricao = isset($_POST['descricao']) ? $_POST['descricao'] : null;
+$cor = isset($_POST['cor']) ? $_POST['cor'] : null;
+$preco = isset($_POST['preco']) ? $_POST['preco'] : null;
 
-$marca = $_POST['marca'];
-$modelo = $_POST['modelo'];
-$descricao = $_POST['descricao'];
-$cor = $_POST['cor'];
-$preco = $_POST['preco'];
-
-$sqlListagem = "SELECT * FROM carros ";
+$sqlListagem = "SELECT * FROM carros";
 $resultado = $conn->query($sqlListagem);
 
-$sqlEditar = "UPDATE carros SET marca = '$marca', modelo = '$modelo',  preco = '$preco',
+if ($idEditar && $marca && $modelo && $descricao && $cor && $preco) {
+    $sqlEditar = "UPDATE carros SET marca = '$marca', modelo = '$modelo', preco = '$preco',
                   descricao = '$descricao', cor = '$cor' WHERE id = '$idEditar'";
-$resultadoEditar = $conn->query($sqlEditar);
+    $resultadoEditar = $conn->query($sqlEditar);
+}
 
-$sqlRemover = "DELETE FROM carros WHERE id = '$idExcluir'";
-$resultado_excluir = $conn->query($sqlRemover);
+if ($idExcluir) {
+    $sqlRemover = "DELETE FROM carros WHERE id = '$idExcluir'";
+    $resultado_excluir = $conn->query($sqlRemover);
+}
 ?>
 
 <!DOCTYPE html>
