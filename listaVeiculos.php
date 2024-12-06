@@ -2,12 +2,23 @@
 include 'conexao.php';
 
 $idExcluir = $_POST['id_excluir'];
+$idEditar = $_POST['idEditar'];
+
+$marca = $_POST['marca'];
+$modelo = $_POST['modelo'];
+$descricao = $_POST['descricao'];
+$cor = $_POST['cor'];
+$preco = $_POST['preco'];
 
 $sqlListagem = "SELECT * FROM carros ";
 $resultado = $conn->query($sqlListagem);
 
-$sql_excluir = "DELETE FROM carros WHERE id = '$idExcluir'";
-$resultado_excluir = $conn->query($sql_excluir);
+$sqlEditar = "UPDATE carros SET marca = '$marca', modelo = '$modelo',  preco = '$preco',
+                  descricao = '$descricao', cor = '$cor' WHERE id = '$idEditar'";
+$resultadoEditar = $conn->query($sqlEditar);
+
+$sqlRemover = "DELETE FROM carros WHERE id = '$idExcluir'";
+$resultado_excluir = $conn->query($sqlRemover);
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +28,6 @@ $resultado_excluir = $conn->query($sql_excluir);
     <title>Listagem de Usuários</title>
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
-
 </head>
 <header class="header">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -38,7 +48,6 @@ $resultado_excluir = $conn->query($sql_excluir);
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
-                            <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
@@ -64,7 +73,7 @@ $resultado_excluir = $conn->query($sql_excluir);
 </header>
 <body>
 <div class="container">
-    <h1 class="my-4 text-center">Lista de Usuários</h1>
+    <h1 class="my-4 text-center">Lista de Carros</h1>
 
     <?php if ($resultado->num_rows > 0): ?>
         <table class="table table-striped table-hover table-bordered shadow-sm">
@@ -89,7 +98,7 @@ $resultado_excluir = $conn->query($sql_excluir);
                 echo "<td>" . $row['cor'] . "</td>";
                 echo "<td>" . $row['preco'] . "</td>";
                 echo "<td>";
-                echo "<button class='btn btn-warning btn-editar' data-id='" . $row['id'] . "' data-marca='" . $row['marca'] . "' data-modelo='" . $row['modelo'] . "' data-descricao='" . $row['descricao'] . "'>Editar</button>";
+                echo "<button class='btn btn-warning btn-editar' data-id='" . $row['id'] . "' data-marca='" . $row['marca'] . "' data-modelo='" . $row['modelo'] . "' data-descricao='" . $row['descricao'] . "' data-cor='" . $row['cor'] . "' data-preco='" . $row['preco'] . "'>Editar</button>";
                 echo "<button class='btn btn-danger btn-excluir' data-id='" . $row['id'] . "'>Excluir</button>";
                 echo "</td>";
                 echo "</tr>";
@@ -98,18 +107,17 @@ $resultado_excluir = $conn->query($sql_excluir);
             </tbody>
         </table>
     <?php else: ?>
-        <p class="alert alert-warning">Não há usuários registrados.</p>
+        <p class="alert alert-warning">Não há carros registrados.</p>
     <?php endif; ?>
 </div>
-
 
 <!-- Modal de Edição -->
 <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalEditarLabel">Editar Usuário</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content rounded-4 shadow-lg">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title text-primary" id="modalEditarLabel">Editar Veículo</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="listaVeiculos.php" method="POST">
@@ -117,32 +125,40 @@ $resultado_excluir = $conn->query($sql_excluir);
 
                     <div class="mb-3">
                         <label for="marcaEditar" class="form-label">Marca</label>
-                        <input type="text" class="form-control" id="marcaEditar" name="marca" required>
+                        <select class="form-select" id="marcaEditar" name="marca" required>
+                            <option value="">Selecione a marca</option>
+                            <?php
+                            while ($row = $resultado->fetch_assoc()) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['marca'] . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="editarModelo" class="form-label">Modelo</label>
-                        <input type="text" class="form-control" id="editarModelo" name="modelo" required>
+                        <label for="editarModelo" class="form-label fw-bold text-muted">Modelo</label>
+                        <input type="text" class="form-control border-0 rounded-3 shadow-sm" id="editarModelo" name="modelo" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="editaDescricao" class="form-label">Descrição</label>
-                        <input type="text" class="form-control" id="editaDescricao" name="descricao" required>
+                        <label for="editaDescricao" class="form-label fw-bold text-muted">Descrição</label>
+                        <input type="text" class="form-control border-0 rounded-3 shadow-sm" id="editaDescricao" name="descricao" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="corEditar" class="form-label">Cor</label>
-                        <input type="text" class="form-control" id="corEditar" name="cor">
+                        <label for="corEditar" class="form-label fw-bold text-muted">Cor</label>
+                        <input type="text" class="form-control border-0 rounded-3 shadow-sm" id="corEditar" name="cor">
                     </div>
 
                     <div class="mb-3">
-                        <label for="editaPreco" class="form-label">Preço</label>
-                        <input type="text" class="form-control" id="editaPreco" name="preco">
+                        <label for="editaPreco" class="form-label fw-bold text-muted">Preço</label>
+                        <input type="text" class="form-control border-0 rounded-3 shadow-sm" id="editaPreco" name="preco">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 shadow-sm">Salvar alterações</button>
+                    </div>
                 </form>
-
             </div>
         </div>
     </div>
@@ -157,31 +173,38 @@ $resultado_excluir = $conn->query($sql_excluir);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p class="mb-4">Tem certeza de que deseja excluir este veículo? Esta ação não pode ser desfeita.</p>
-                <form action="listaVeiculos.php" method="POST">
+                <p>Você tem certeza que deseja excluir este veículo?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form method="POST" id="formExcluir">
                     <input type="hidden" id="idExcluir" name="id_excluir">
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-danger me-2">Sim, excluir</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    </div>
+                    <button type="submit" class="btn btn-danger">Excluir</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.querySelectorAll('.btn-editar').forEach(button => {
         button.addEventListener('click', function () {
             const id = this.getAttribute('data-id');
-            const nome = this.getAttribute('data-nome');
-            const email = this.getAttribute('data-email');
+            const marca = this.getAttribute('data-marca');
+            const modelo = this.getAttribute('data-modelo');
+            const descricao = this.getAttribute('data-descricao');
+            const cor = this.getAttribute('data-cor');
+            const preco = this.getAttribute('data-preco');
+
+            console.log(id, marca, modelo, descricao, cor, preco);
 
             document.getElementById('idEditar').value = id;
-            document.getElementById('nomeEditar').value = nome;
-            document.getElementById('emailEditar').value = email;
+            document.getElementById('marcaEditar').value = marca;
+            document.getElementById('editarModelo').value = modelo;
+            document.getElementById('editaDescricao').value = descricao;
+            document.getElementById('corEditar').value = cor;
+            document.getElementById('editaPreco').value = preco;
 
             new bootstrap.Modal(document.getElementById('modalEditar')).show();
         });
