@@ -22,6 +22,7 @@ $conn->close();
     <title>Carros</title>
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
+    <link rel="icon" href="/img/perfil/car.png">
 </head>
 <body>
 <header class="header">
@@ -44,6 +45,8 @@ $conn->close();
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
+                            <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
+
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
