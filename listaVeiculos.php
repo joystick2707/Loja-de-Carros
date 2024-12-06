@@ -39,6 +39,7 @@ $resultado_excluir = $conn->query($sql_excluir);
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
+                            <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
