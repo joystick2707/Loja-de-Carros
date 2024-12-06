@@ -1,29 +1,34 @@
 <?php
-    include 'conexao.php';
+include 'conexao.php';
 
-    $idExcluir = $_POST['id_excluir'];
+$idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
 
-    $idEditar = $_POST['idEditar'];
-    $novoNome = $_POST['nome'];
-    $novoEmail = $_POST['email'];
-    $tipoUsuario = $_POST['tipoUsuario'];
-    $senha = $_POST['senha'];
-    $confirmaSenha = $_POST['confirmaSenha'];
+$idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
+$novoNome = isset($_POST['nome']) ? $_POST['nome'] : null;
+$novoEmail = isset($_POST['email']) ? $_POST['email'] : null;
+$tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : null;
+$senha = isset($_POST['senha']) ? $_POST['senha'] : null;
+$confirmaSenha = isset($_POST['confirmaSenha']) ? $_POST['confirmaSenha'] : null;
 
-    $sqlListagem = "SELECT * FROM usuario";
-    $resultado = $conn->query($sqlListagem);
+$sqlListagem = "SELECT * FROM usuario";
+$resultado = $conn->query($sqlListagem);
 
+if ($idEditar && $novoNome && $novoEmail && $tipoUsuario) {
     $sql_edita = "UPDATE usuario SET nome = '$novoNome', email = '$novoEmail', tipoUsuario = '$tipoUsuario' WHERE id = '$idEditar'";
     $resultado_edita = $conn->query($sql_edita);
+}
 
-    if($senha == $confirmaSenha){
-        $sqlEditaSenha = "UPDATE usuario SET senha = '$senha' WHERE id = '$idEditar'";
-        $resultadoEditaSenha = $conn->query($sqlEditaSenha);
-    }
+if ($senha === $confirmaSenha && $idEditar) {
+    $sqlEditaSenha = "UPDATE usuario SET senha = '$senha' WHERE id = '$idEditar'";
+    $resultadoEditaSenha = $conn->query($sqlEditaSenha);
+}
 
+if ($idExcluir) {
     $sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
     $resultado_excluir = $conn->query($sql_excluir);
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -53,7 +58,6 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
-                            <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
@@ -146,12 +150,12 @@
 
                     <div class="mb-3">
                         <label for="senhaEditar" class="form-label">Nova Senha</label>
-                        <input type="password" class="form-control" id="senhaEditar" name="senha">
+                        <input type="password" class="form-control" id="senhaEditar" name="senha" placeholder="Digite sua senha">
                     </div>
 
                     <div class="mb-3">
                         <label for="confirmarSenhaEditar" class="form-label">Confirmar Senha</label>
-                        <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmaSenha">
+                        <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmaSenha" placeholder="Digite a senha novamente">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Salvar alterações</button>
