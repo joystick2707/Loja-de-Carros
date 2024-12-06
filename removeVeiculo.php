@@ -1,20 +1,19 @@
 <?php
 include "conexao.php";
 
-// Se a requisição for POST (formulário enviado)
+$sqlCarros = "SELECT carros.id, brands.name AS marca FROM carros JOIN brands ON brands.id = carros.marca";
+$resultCarros = $conn->query($sqlCarros);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST["removeId"];
 
-    // Preparar a consulta para deletar o veículo
     $stmt = $conn->prepare("DELETE FROM carros WHERE id = ?");
     $stmt->bind_param("i", $id);
     $result = $stmt->execute();
 
-    // Consultar todos os veículos cadastrados
     $sqlCarros = "SELECT carros.id, brands.name AS marca FROM carros JOIN brands ON brands.id = carros.marca";
     $resultCarros = $conn->query($sqlCarros);
 
-    // Exibir alerta de sucesso ou erro após execução da exclusão
     if ($result) {
         echo "<script>
                 window.onload = function() {
@@ -73,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
+                            <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -82,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
                             <li><a class="dropdown-item" href="editaUsuario.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeUsuarios.php">Remover</a></li>
+                            <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -103,14 +104,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <select class="form-select" id="marca" name="removeId" required>
                 <option value="">Selecione o veículo</option>
                 <?php
-                // Verificar se a consulta retornou resultados
                 if ($resultCarros->num_rows > 0) {
-                    // Iterar sobre os resultados da consulta
                     while ($row = $resultCarros->fetch_assoc()) {
                         echo "<option value='" . $row['id'] . "'>" . $row['marca'] . "</option>";
                     }
                 } else {
-                    // Caso não tenha veículos cadastrados
                     echo "<option value=''>Nenhum veículo cadastrado</option>";
                 }
                 ?>
