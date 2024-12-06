@@ -3,11 +3,12 @@
 
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $marca = $_POST['editaMarca'];
+        $modelo = $_POST['editaModelo'];
         $descricao = $_POST['editaDescricao'];
         $cor = $_POST['editaCor'];
         $preco = $_POST['editaPreco'];
 
-        $sql = "UPDATE carros SET descricao ='$descricao', cor = '$cor', preco = '$preco'
+        $sql = "UPDATE carros SET modelo = $modelo, descricao ='$descricao', cor = '$cor', preco = '$preco'
               WHERE marca = '$marca'";
         $result = $conn->query($sql);
 
@@ -69,6 +70,7 @@
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
+                            <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -78,6 +80,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
                             <li><a class="dropdown-item" href="editaUsuario.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeUsuarios.php">Remover</a></li>
+                            <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -97,6 +100,10 @@
         <div class="mb-3">
             <label for="marca" class="form-label">Marca</label>
             <input type="text" class="form-control" id="marca" name="editaMarca" placeholder="Digite a marca do veículo" required>
+        </div>
+        <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo</label>
+            <input type="text" class="form-control" id="modelo" name="editaModelo" placeholder="Digite o modelo do veículo" required>
         </div>
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
