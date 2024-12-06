@@ -75,9 +75,6 @@ $sql = "SELECT id, name FROM brands";
 $result = $conn->query($sql);
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -110,6 +107,7 @@ $result = $conn->query($sql);
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
+                            <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -119,6 +117,7 @@ $result = $conn->query($sql);
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
                             <li><a class="dropdown-item" href="editaUsuario.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeUsuarios.php">Remover</a></li>
+                            <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -138,9 +137,8 @@ $result = $conn->query($sql);
         <div class="mb-3">
             <label for="marca" class="form-label">Marca</label>
             <select class="form-select" id="marca" name="marca" required>
-                <option value="">Selecione a marca</option> <!-- Opção padrão -->
+                <option value="">Selecione a marca</option>
                 <?php
-                // Verificando se há marcas na tabela e preenchendo as opções
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
@@ -176,6 +174,7 @@ $result = $conn->query($sql);
 
     </form>
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
