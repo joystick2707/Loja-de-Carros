@@ -20,17 +20,28 @@
     margin-left: 5%;
 }
 
-.card{
-    height: 250px;
-    width: 180px;
-    border: solid gray;
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-body button {
+    align-self: center;
+}
+
 
 .logo{
     height: 40px;
     width: 40px;
 }
-
 
 /* CSS PAGINA DE MARCAS */
 
@@ -94,5 +105,96 @@
     font-size: 14px;
 }
 
+.modal-lg-custom {
+    max-width: 45%;
+}
+/* CSS DA TABELA DE USUARIOS */
+
+/* Personalizando a tabela para reduzir o tamanho */
+table {
+    margin-top: 20px;
+    font-size: 0.9rem; /* Diminui o tamanho da fonte */
+    width: 100%; /* Tabela ocupa toda a largura possível */
+}
+
+th, td {
+    padding: 8px; /* Diminui o padding das células */
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #ddd;
+}
+
+.btn-editar, .btn-excluir {
+    margin: 2px 5px;
+    font-size: 0.8rem; /* Diminui o tamanho dos botões */
+}
+
+.container {
+    max-width: 900px; /* Limita o tamanho da tabela */
+    margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+.btn-editar, .btn-excluir {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.btn-editar:hover {
+    background-color: #e0a800;
+    transform: scale(1.05);
+}
+
+.btn-excluir {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-excluir:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    th, td {
+        font-size: 0.8rem;
+    }
+
+    .btn-editar, .btn-excluir {
+        font-size: 0.75rem;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+}
 
 
