@@ -6,19 +6,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['editaEmail'];
     $senha = $_POST['editaSenha'];
     $tipoUsuario = $_POST['tipoUsuario'];
+    $novoNome = $_POST['novoNome'];
 
-    // Verifica se todos os campos foram preenchidos
     if (!empty($nome) && !empty($email) && !empty($senha) && !empty($tipoUsuario)) {
 
-        // Prepara a consulta para atualizar o usuário
-        $stmt = $conn->prepare("UPDATE usuario SET email = ?, senha = ?, tipoUsuario = ? WHERE nome = ?");
+        $stmt = $conn->prepare("UPDATE usuario SET nome = ? , email = ?, senha = ?, tipoUsuario = ? WHERE nome = ?");
+        $stmt->bind_param("sssss", $novoNome, $email, $senha, $tipoUsuario, $nome);
 
-        $stmt->bind_param("ssss", $email, $senha, $tipoUsuario, $nome);
-
-        // Executa a consulta
         $result = $stmt->execute();
 
-        // Exibe a mensagem de sucesso ou erro
         if ($result) {
             echo "<script>
                     window.onload = function() {
@@ -43,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   </script>";
         }
 
-        // Fecha a consulta
         $stmt->close();
     } else {
         echo "<script>
@@ -59,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Recuperando usuários da tabela `usuario`
 $sqlUser = "SELECT nome FROM usuario";
 $resultUser = $conn->query($sqlUser);
 ?>
@@ -96,6 +90,7 @@ $resultUser = $conn->query($sqlUser);
                             <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
+                            <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -105,6 +100,7 @@ $resultUser = $conn->query($sqlUser);
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
                             <li><a class="dropdown-item" href="editaUsuario.php">Editar</a></li>
                             <li><a class="dropdown-item" href="removeUsuarios.php">Remover</a></li>
+                            <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -135,6 +131,10 @@ $resultUser = $conn->query($sqlUser);
                 }
                 ?>
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="email" name="novoNome" placeholder="Digite o novo nome" required>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
