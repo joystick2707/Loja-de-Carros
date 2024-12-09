@@ -1,51 +1,57 @@
 <?php
-    include 'conexao.php';
+include 'conexao.php';
 
-    $idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
-    $idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
-    $novoNome = isset($_POST['nome']) ? $_POST['nome'] : null;
-    $novoEmail = isset($_POST['email']) ? $_POST['email'] : null;
-    $tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : null;
-    $senha = isset($_POST['senha']) ? $_POST['senha'] : null;
-    $confirmaSenha = isset($_POST['confirmaSenha']) ? $_POST['confirmaSenha'] : null;
+$idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
+$idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
+$novoNome = isset($_POST['nome']) ? $_POST['nome'] : null;
+$novoEmail = isset($_POST['email']) ? $_POST['email'] : null;
+$tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : null;
+$senha = isset($_POST['senha']) ? $_POST['senha'] : null;
+$confirmaSenha = isset($_POST['confirmaSenha']) ? $_POST['confirmaSenha'] : null;
 
-    $sqlListagem = "SELECT * FROM usuario";
-    $resultado = $conn->query($sqlListagem);
+$searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
 
-    if ($idEditar && $novoNome && $novoEmail && $tipoUsuario) {
-        $sql_edita = "UPDATE usuario SET nome = '$novoNome', email = '$novoEmail', tipoUsuario = '$tipoUsuario' WHERE id = '$idEditar'";
-        $resultado_edita = $conn->query($sql_edita);
-        echo "<script>
+if ($conn) {
+    $stmt = $conn->prepare("SELECT * FROM usuario WHERE nome LIKE ? OR email LIKE ?");
+
+    $searchTerm = "%" . $searchTerm . "%";
+
+    $stmt->bind_param('ss', $searchTerm, $searchTerm);
+
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
+}
+
+if ($idEditar && $novoNome && $novoEmail && $tipoUsuario) {
+    $sql_edita = "UPDATE usuario SET nome = '$novoNome', email = '$novoEmail', tipoUsuario = '$tipoUsuario' WHERE id = '$idEditar'";
+    $resultado_edita = $conn->query($sql_edita);
+    echo "<script>
                     window.onload = function() {
                         Swal.fire({
                             title: 'Sucesso!',
-                            text: 'Usuario atualizado com sucesso!',
+                            text: 'Usuário atualizado com sucesso!',
                             icon: 'success',
                             confirmButtonText: 'OK'
                         });
                     }
                   </script>";
-    }
+}
 
-    if ($idExcluir) {
-        $sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
-        $resultado_excluir = $conn->query($sql_excluir);
-        echo "<script>
+if ($idExcluir) {
+    $sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
+    $resultado_excluir = $conn->query($sql_excluir);
+    echo "<script>
                     window.onload = function() {
                         Swal.fire({
                             title: 'Sucesso!',
-                            text: 'Usuario excluído com sucesso!',
+                            text: 'Usuário excluído com sucesso!',
                             icon: 'success',
                             confirmButtonText: 'OK'
                         });
                     }
                   </script>";
-    }
-
-    //if ($senha === $confirmaSenha && $idEditar) {
-    //    $sqlEditaSenha = "UPDATE usuario SET senha = '$senha' WHERE id = '$idEditar'";
-    //    $resultadoEditaSenha = $conn->query($sqlEditaSenha);
-    //}
+}
 ?>
 
 <!DOCTYPE html>
@@ -87,8 +93,8 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
+                <form class="d-flex" role="search" method="POST" action="listaUsuarios.php">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
                     <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
                 </form>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
@@ -100,40 +106,40 @@
 <div class="container">
     <h1 class="my-4 text-center">Lista de Usuários</h1>
     <?php if ($resultado->num_rows > 0): ?>
-        <table class="table table-striped table-hover table-bordered shadow-sm">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Tipo de Usuário</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            while ($row = $resultado->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $row['id'] . "</td>";
-                echo "<td>" . $row['nome'] . "</td>";
-                echo "<td>" . $row['email'] . "</td>";
-                echo "<td>" . $row['tipoUsuario'] . "</td>";
-                echo "<td>";
-                echo "<button class='btn btn-warning btn-editar' data-id='" . $row['id'] . "' data-nome='" . $row['nome'] . "' data-email='" . $row['email'] . "'>Editar</button>";
-                echo "<button class='btn btn-danger btn-excluir' data-id='" . $row['id'] . "'>Excluir</button>";
-                echo "</td>";
-                echo "</tr>";
-            }
-            ?>
-            </tbody>
-    <?php else: ?>
-        <p class="alert alert-warning">Não há usuários registrados.</p>
-    <?php endif; ?>
+    <table class="table table-striped table-hover table-bordered shadow-sm">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Tipo de Usuário</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        while ($row = $resultado->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . $row['id'] . "</td>";
+            echo "<td>" . $row['nome'] . "</td>";
+            echo "<td>" . $row['email'] . "</td>";
+            echo "<td>" . $row['tipoUsuario'] . "</td>";
+            echo "<td>";
+            echo "<button class='btn btn-warning btn-editar' data-id='" . $row['id'] . "' data-nome='" . $row['nome'] . "' data-email='" . $row['email'] . "'>Editar</button>";
+            echo "<button class='btn btn-danger btn-excluir' data-id='" . $row['id'] . "'>Excluir</button>";
+            echo "</td>";
+            echo "</tr>";
+        }
+        ?>
+        </tbody>
+        <?php else: ?>
+            <p class="alert alert-warning">Não há usuários registrados.</p>
+        <?php endif; ?>
 </div>
 
 <!-- Modal de Edição -->
 <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered"> <!-- Adicione modal-dialog-centered aqui -->
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalEditarLabel">Editar Usuário</h5>
@@ -142,7 +148,6 @@
             <div class="modal-body">
                 <form action="listaUsuarios.php" method="POST">
                     <input type="hidden" id="idEditar" name="idEditar">
-
                     <div class="mb-3">
                         <label for="nomeEditar" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nomeEditar" name="nome" required>
@@ -161,23 +166,12 @@
                         </select>
                     </div>
 
-                    <!--                    <div class="mb-3">-->
-                    <!--                        <label for="senhaEditar" class="form-label">Nova Senha</label>-->
-                    <!--                        <input type="password" class="form-control" id="senhaEditar" name="senha" placeholder="Digite sua senha">-->
-                    <!--                    </div>-->
-                    <!---->
-                    <!--                    <div class="mb-3">-->
-                    <!--                        <label for="confirmarSenhaEditar" class="form-label">Confirmar Senha</label>-->
-                    <!--                        <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmaSenha" placeholder="Digite a senha novamente">-->
-                    <!--                    </div>-->
-
                     <button type="submit" class="btn btn-primary">Salvar alterações</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Modal de Exclusão -->
 <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
