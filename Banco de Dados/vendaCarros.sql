@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 09/12/2024 às 15:35
+-- Tempo de geração: 09/12/2024 às 20:08
 -- Versão do servidor: 8.0.40-0ubuntu0.24.04.1
 -- Versão do PHP: 8.3.6
 
@@ -276,7 +276,7 @@ CREATE TABLE `carros` (
   `id` int NOT NULL,
   `marca` varchar(200) NOT NULL,
   `modelo` varchar(100) NOT NULL,
-  `preco` float(10,2) NOT NULL,
+  `preco` decimal(10,0) NOT NULL,
   `descricao` varchar(200) NOT NULL,
   `cor` varchar(50) NOT NULL,
   `imagem` varchar(100) NOT NULL
@@ -287,9 +287,8 @@ CREATE TABLE `carros` (
 --
 
 INSERT INTO `carros` (`id`, `marca`, `modelo`, `preco`, `descricao`, `cor`, `imagem`) VALUES
-(33, '6', 'Uno Quadrado', 15000.00, 'SUV de luxo com design moderno e distinto, tecnologia avançada e desempenho.', 'Prata', '../img/perfil/6751d0b607c14.jpg'),
-(36, '7', 'X1', 750000.00, 'Mantém as características dinâmicas da Ferrari Roma, com chassi de alumínio e ao motor V8 de 620 hp.', 'Branca', '../img/perfil/675356c695a64.jpg'),
-(37, '7', 'X1', 750000.00, 'Mantém as características dinâmicas da Ferrari Roma, com chassi de alumínio e ao motor V8 de 620 hp.', 'Branca', '../img/perfil/675356cb2fc5b.jpg');
+(33, '4', 'Uno Quadrado', 745000, 'SUV de luxo com design moderno e distinto, tecnologia avançada e desempenho.', 'Vermelho', '../img/perfil/6751d0b607c14.jpg'),
+(37, '7', 'Teste', 150000, 'Mantém as características dinâmicas da Ferrari Roma, com chassi de alumínio e ao motor V8 de 620 hp.', 'Branca', '../img/perfil/675356cb2fc5b.jpg');
 
 -- --------------------------------------------------------
 
@@ -310,9 +309,33 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipoUsuario`) VALUES
-(29, 'Bryan Strey', 'bryan8745@hotmail.com', '1303', 'ADM'),
+(29, 'Bryan Strey', 'bryan@gmail.com', '1303', 'ADM'),
 (32, 'Stefany Amorin', 'stefany@gmail.com', '159753', 'Padrão'),
-(38, 'Lucas Juan', 'lucasJuan@gmail.com', '159753', 'ADM');
+(38, 'Lucas Juan', 'lucasJuan@gmail.com', '159753', 'ADM'),
+(40, 'Kamila Mendes', 'kamilaMendes7854@outlook.com.br', '84268426', 'Padrão'),
+(41, 'João Silva', 'joaoSilva@gmail.com', '	@SenhaForte123', 'Padrão'),
+(42, 'Maria Oliveira', 'maria.oliveira@gmail.com', '#Segura@2024', 'ADM'),
+(43, 'Pedro Santos', 'pedro.santos@yahoo.com.br', '!Pass$word321', 'Padrão'),
+(44, 'Ana Costa', 'ana.costa@yahoo.com.br', 'Costa2024*', 'Padrão'),
+(45, 'Lucas Souza', 'lucas.souza@gmail.com', 'Luke1234@', 'Padrão'),
+(46, 'Júlia Ferreira', 'julia.ferreira@gmail.com', '@SenhaDeTeste789', 'Padrão'),
+(47, 'Felipe Lima', 'felipe.lima@gmail.com', 'Lima$ecret2024', 'Padrão'),
+(48, 'Camila Ramos', 'camila.ramos@yahoo.com.br', 'Ramos@#$123', 'Padrão'),
+(50, 'Rafael Martins', 'rafael.martins@gmail.com', 'SafePass2024!', 'Padrão'),
+(51, 'Vanessa Rocha', 'vanessa.rocha@gmail.com', '	!RochaSecure789', 'Padrão'),
+(52, 'Gustavo Azevedo', 'gustavo.azevedo@outlook.com', 'Gust@vo456!', 'Padrão'),
+(53, 'Lara Cardoso', 'lara.cardoso@outlook.com', 'LaraC@rdoso2024', 'Padrão'),
+(54, 'Diego Pereira', 'diego.pereira@gmail.com', 'Die2024@Pass!', 'ADM'),
+(55, 'Patrícia Alves', 'patricia.alves@gmail.com', 'Alves1234#', 'Padrão'),
+(56, 'Bruno Carvalho', 'bruno.carvalho@gmail.com', '	!Carv@lho789', 'ADM'),
+(57, 'Bianca Mendes', 'bianca.mendes@gmail.com', '	Mendes@2024!', 'ADM'),
+(58, 'Thiago Barros', 'thiago.barros@gmail.com', 'Thi@go#2024', 'Padrão'),
+(59, 'Isabela Lopes', 'isabela.lopes@gmail.com', 'Isabela*123$', 'Padrão'),
+(60, 'Renan Duarte', 'renan.duarte@gmail.com', 'RenanSecure#21', 'ADM'),
+(61, 'Carolina Teixeira', 'carolina.teixeira@outlook.com', '@CaroT2024$', 'Padrão'),
+(62, 'Gabriel Medeiros', 'gabrield78964@gmail.com', '159753', 'ADM'),
+(63, 'Zaphir Camargo', 'zaphyr@gmail.com', '123654', 'ADM'),
+(64, 'Stefano Borges', 'botgestefano@gmail.com', '142536', 'Padrão');
 
 --
 -- Índices para tabelas despejadas
@@ -362,7 +385,7 @@ ALTER TABLE `carros`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
