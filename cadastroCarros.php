@@ -81,9 +81,9 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Veículos</title>
-    <link rel="stylesheet" href="src/style/cadastroVeiculos.css">
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
+    <link rel="stylesheet" href="src/style/cadastroVeiculos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
 </head>
 <body>
@@ -117,10 +117,6 @@ $result = $conn->query($sql);
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
-                    <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
-                </form>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
             </div>
         </div>
@@ -130,44 +126,45 @@ $result = $conn->query($sql);
 <main class="container mt-5">
     <h3 class="titulo">Cadastro de Veículos</h3>
     <form action="cadastroCarros.php" method="POST" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="marca" class="form-label">Marca</label>
-            <select class="form-select" id="marca" name="marca" required>
-                <option value="">Selecione a marca</option>
-                <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+        <div class="form-row">
+            <div class="form-group">
+                <label for="marca" class="form-label">Marca</label>
+                <select class="form-select" id="marca" name="marca" required>
+                    <option value="">Selecione a marca</option>
+                    <?php
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                        }
+                    } else {
+                        echo "<option value=''>Nenhuma marca cadastrada</option>";
                     }
-                } else {
-                    echo "<option value=''>Nenhuma marca cadastrada</option>";
-                }
-                ?>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="modelo" class="form-label">Modelo</label>
-            <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Digite o modelo do carro" required>
-        </div>
-        <div class="mb-3">
-            <label for="modelo" class="form-label">Descrição</label>
-            <input type="text" class="form-control" id="modelo" name="descricao" placeholder="Digite a descrição do veículo" required>
-        </div>
-        <div class="mb-3">
-            <label for="ano" class="form-label">Cor</label>
-            <input type="text" class="form-control" id="ano" name="cor" placeholder="Digite a cor do veículo" required>
-        </div>
-        <div class="mb-3">
-            <label for="cor" class="form-label">Preço</label>
-            <input type="text" class="form-control" id="cor" name="preco" placeholder="Digite o preço do veículo" required>
-        </div>
-        <div class="mb-3">
-            <label for="cor" class="form-label">Imagem</label>
-            <input type="file" class="form-control" id="imagem" name="imagem" placeholder="Selecione a imagem" required>
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="modelo" class="form-label">Modelo</label>
+                <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Digite o modelo do carro" required>
+            </div>
+            <div class="form-group">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição do veículo" required>
+            </div>
+            <div class="form-group">
+                <label for="cor" class="form-label">Cor</label>
+                <input type="text" class="form-control" id="cor" name="cor" placeholder="Digite a cor do veículo" required>
+            </div>
+            <div class="form-group">
+                <label for="preco" class="form-label">Preço</label>
+                <input type="text" class="form-control" id="preco" name="preco" placeholder="Digite o preço do veículo" required>
+            </div>
+            <div class="form-group">
+                <label for="imagem" class="form-label">Imagem</label>
+                <input type="file" class="form-control" id="imagem" name="imagem" required>
+            </div>
         </div>
 
-        <button type="submit" class="btn btn-outline-success" style="width: 25%; margin-left: 35%; margin-top: 1%;">Cadastrar Veículo</button>
-
+        <button type="submit" class="btn btn-outline-success">Cadastrar Veículo</button>
     </form>
 </main>
 
