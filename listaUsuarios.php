@@ -2,7 +2,6 @@
 include 'conexao.php';
 
 $idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
-
 $idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
 $novoNome = isset($_POST['nome']) ? $_POST['nome'] : null;
 $novoEmail = isset($_POST['email']) ? $_POST['email'] : null;
@@ -28,7 +27,6 @@ if ($idExcluir) {
     $resultado_excluir = $conn->query($sql_excluir);
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -57,7 +55,6 @@ if ($idExcluir) {
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
-                            <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
@@ -66,8 +63,6 @@ if ($idExcluir) {
                             Usuário
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                            <li><a class="dropdown-item" href="editaUsuario.php">Editar</a></li>
-                            <li><a class="dropdown-item" href="removeUsuarios.php">Remover</a></li>
                             <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
                         </ul>
                     </li>
