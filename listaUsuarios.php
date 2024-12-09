@@ -12,14 +12,10 @@ $confirmaSenha = isset($_POST['confirmaSenha']) ? $_POST['confirmaSenha'] : null
 $searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
 
 if ($conn) {
-    $stmt = $conn->prepare("SELECT * FROM usuario WHERE nome LIKE ? OR email LIKE ?");
-
+    $stmt = $conn->prepare("SELECT * FROM usuario WHERE id LIKE ? OR nome LIKE ? OR email LIKE ? OR tipoUsuario LIKE ?");
     $searchTerm = "%" . $searchTerm . "%";
-
-    $stmt->bind_param('ss', $searchTerm, $searchTerm);
-
+    $stmt->bind_param('ssss', $searchTerm, $searchTerm, $searchTerm, $searchTerm);
     $stmt->execute();
-
     $resultado = $stmt->get_result();
 }
 
