@@ -1,78 +1,60 @@
 <?php
-include 'conexao.php';
+    include 'conexao.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $marca = $_POST["marca"];
-    $modelo = $_POST["modelo"];
-    $descricao = $_POST["descricao"];
-    $cor = $_POST["cor"];
-    $preco = $_POST["preco"];
-    $imagem = $_POST["imagem"];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nome = $_POST['nome'];
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+        $confirmaSenha = $_POST['confirmaSenha'];
 
-    $sql = "SELECT * FROM carros WHERE marca = '$marca'";
-    $result = $conn->query($sql);
+        $sql = "SELECT * FROM usuario WHERE email = '$email' AND senha = '$senha'";
+        $result = $conn->query($sql);
 
-    // Definindo o caminho para a pasta de imagens
-    $caminho = $_SERVER['DOCUMENT_ROOT'] . '/img/perfil/';
-    $imagem_temp = $_FILES['imagem']['tmp_name'];
-
-    // Verificando se o arquivo foi enviado
-    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
-        // Verificando a extensão do arquivo
-        $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
-        if (!in_array(strtolower($ext), ['png', 'jpg', 'jpeg'])) {
-            echo 'Extensão de imagem não permitida! Apenas PNG, JPG e JPEG são aceitos.';
-            exit();
-        }
-
-        // Gerando um nome único para o arquivo
-        $nome_imagem = uniqid() . '.' . $ext;
-        $imagem = '../img/perfil/' . $nome_imagem;  // Caminho relativo da imagem
-
-        // Movendo a imagem para o diretório de perfil
-        if (move_uploaded_file($imagem_temp, $caminho . $nome_imagem)) {
-            // A imagem foi movida com sucesso
+        if ($result->num_rows > 0){
+            echo "<script>
+                        window.onload = function() {
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: 'Esse usuário já existe, por favor tente outro email!',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                      </script>";
         } else {
-            echo 'Erro ao fazer upload da imagem!';
-            exit();
+            if ($senha == $confirmaSenha) {
+                $stmt = $conn->prepare("INSERT INTO usuario (nome, email, senha, tipoUsuario) VALUES (?, ?, ?, 'Padrão')");
+                $stmt->bind_param("sss", $nome, $email, $senha);
+                $stmt->execute();
+
+                echo "<script>
+                        window.onload = function() {
+                            Swal.fire({
+                                title: 'Sucesso!',
+                                text: 'Usuário cadastrado com sucesso!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = 'login.php'; // Redireciona após confirmação do alerta
+                                }
+                            });
+                        }
+                      </script>";
+            } else {
+                echo "<script>
+                        window.onload = function() {
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: 'Senhas Diferentes!',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                      </script>";
+            }
         }
-    } else {
-        echo 'Erro ao enviar a imagem.';
-        exit();
     }
-
-    if (!empty($marca) && !empty($descricao) && !empty($cor) && !empty($preco) && !empty($modelo)) {
-        $stmt = $conn->prepare("INSERT INTO carros (marca,modelo, descricao, cor, preco, imagem) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $marca,$modelo, $descricao, $cor, $preco, $imagem);
-        $stmt->execute();
-
-        echo "<script>
-                    window.onload = function() {
-                        Swal.fire({
-                            title: 'Sucesso!',
-                            text: 'Veículo cadastrado com sucesso!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                  </script>";
-    } else {
-        // Caso algum campo não tenha sido preenchido
-        echo "<script>
-                    window.onload = function() {
-                        Swal.fire({
-                            title: 'Erro!',
-                            text: 'Por favor, preencha todos os campos!',
-                            icon: 'error',
-                            confirmButtonText: 'Tentar Novamente'
-                        });
-                    }
-                  </script>";
-    }
-}
-
-$sql = "SELECT id, name FROM brands";
-$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -80,98 +62,49 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Veículos</title>
-    <link rel="stylesheet" href="src/style/cadastroVeiculos.css">
-    <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
+    <title>Cadastro</title>
     <link rel="stylesheet" href="src/style/index.css">
+    <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
+
+
 </head>
-<body>
-<header class="header">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="paginaInicial.php"><img class="logo" src="img/perfil/car.png" alt="carro_logo"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="paginaInicial.php">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownMenuLink">
-                            Carros
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
-                            <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownMenuLink1">
-                            Usuário
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                            <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
-                    <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
-                </form>
-                <a class="btn btn-outline-danger" href="login.php">Sair</a>
+<body class="bg-dark text-light">
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-lg" style="max-width: 500px; width: 100%;">
+        <h3 class="text-center mb-4">Cadastro</h3>
+        <form action="cadastro.php" method="POST">
+            <div class="mb-3">
+                <label for="inputNome" class="form-label">Nome Completo</label>
+                <input type="text" class="form-control" id="inputNome" placeholder="Digite seu nome completo" name="nome" required>
             </div>
+            <div class="mb-3">
+                <label for="inputEmail" class="form-label">Endereço de E-mail</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="Digite seu e-mail" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="inputSenha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="inputSenha" placeholder="Digite sua senha" name="senha" required>
+            </div>
+            <div class="mb-3">
+                <label for="inputConfirmarSenha" class="form-label">Confirmar Senha</label>
+                <input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirme sua senha" name="confirmaSenha" required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                <label class="form-check-label" for="exampleCheck1">Eu concordo com os termos de serviço.</label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+        </form>
+        <div class="text-center mt-3">
+            <small>Já tem uma conta? <a href="login.php" class="text-decoration-none text-primary">Faça login</a></small>
         </div>
-    </nav>
-</header>
-
-<main class="container mt-5">
-    <h3 class="titulo">Cadastro de Veículos</h3>
-    <form action="cadastroCarros.php" method="POST" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="marca" class="form-label">Marca</label>
-            <select class="form-select" id="marca" name="marca" required>
-                <option value="">Selecione a marca</option>
-                <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
-                    }
-                } else {
-                    echo "<option value=''>Nenhuma marca cadastrada</option>";
-                }
-                ?>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="modelo" class="form-label">Modelo</label>
-            <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Digite o modelo do carro" required>
-        </div>
-        <div class="mb-3">
-            <label for="modelo" class="form-label">Descrição</label>
-            <input type="text" class="form-control" id="modelo" name="descricao" placeholder="Digite a descrição do veículo" required>
-        </div>
-        <div class="mb-3">
-            <label for="ano" class="form-label">Cor</label>
-            <input type="text" class="form-control" id="ano" name="cor" placeholder="Digite a cor do veículo" required>
-        </div>
-        <div class="mb-3">
-            <label for="cor" class="form-label">Preço</label>
-            <input type="text" class="form-control" id="cor" name="preco" placeholder="Digite o preço do veículo" required>
-        </div>
-        <div class="mb-3">
-            <label for="cor" class="form-label">Imagem</label>
-            <input type="file" class="form-control" id="imagem" name="imagem" placeholder="Selecione a imagem" required>
-        </div>
-
-        <button type="submit" class="btn btn-outline-success" style="width: 25%; margin-left: 35%; margin-top: 1%;">Cadastrar Veículo</button>
-
-    </form>
-</main>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybU3fTtP07zvJ8f+ua7s/52bgguAsFjZfZ3Ff5zJ2p9Bz+zO2" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDPx8p5D9L5gb1SkOVYAtkQCiRrzF5jV6O1TgqU5PEo5+VoFq8iXQpXzX9r" crossorigin="anonymous"></script>
 </body>
 </html>
