@@ -70,8 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
-                            <li><a class="dropdown-item" href="editaVeiculo.php">Editar</a></li>
-                            <li><a class="dropdown-item" href="removeVeiculo.php">Excluir</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
@@ -80,8 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             Usuário
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                            <li><a class="dropdown-item" href="editaUsuario.php">Editar</a></li>
-                            <li><a class="dropdown-item" href="removeUsuarios.php">Remover</a></li>
                             <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
                         </ul>
                     </li>
