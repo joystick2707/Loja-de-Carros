@@ -27,11 +27,6 @@
                   </script>";
     }
 
-    //if ($senha === $confirmaSenha && $idEditar) {
-    //    $sqlEditaSenha = "UPDATE usuario SET senha = '$senha' WHERE id = '$idEditar'";
-    //    $resultadoEditaSenha = $conn->query($sqlEditaSenha);
-    //}
-
     if ($idExcluir) {
         $sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
         $resultado_excluir = $conn->query($sql_excluir);
@@ -45,8 +40,12 @@
                         });
                     }
                   </script>";
-
     }
+
+    //if ($senha === $confirmaSenha && $idEditar) {
+    //    $sqlEditaSenha = "UPDATE usuario SET senha = '$senha' WHERE id = '$idEditar'";
+    //    $resultadoEditaSenha = $conn->query($sqlEditaSenha);
+    //}
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +56,6 @@
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
-
 </head>
 <header class="header">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -101,7 +99,6 @@
 <body>
 <div class="container">
     <h1 class="my-4 text-center">Lista de Usuários</h1>
-
     <?php if ($resultado->num_rows > 0): ?>
         <table class="table table-striped table-hover table-bordered shadow-sm">
             <thead>
@@ -136,7 +133,7 @@
 
 <!-- Modal de Edição -->
 <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered"> <!-- Adicione modal-dialog-centered aqui -->
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalEditarLabel">Editar Usuário</h5>
@@ -164,23 +161,23 @@
                         </select>
                     </div>
 
-<!--                    <div class="mb-3">-->
-<!--                        <label for="senhaEditar" class="form-label">Nova Senha</label>-->
-<!--                        <input type="password" class="form-control" id="senhaEditar" name="senha" placeholder="Digite sua senha">-->
-<!--                    </div>-->
-<!---->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="confirmarSenhaEditar" class="form-label">Confirmar Senha</label>-->
-<!--                        <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmaSenha" placeholder="Digite a senha novamente">-->
-<!--                    </div>-->
+                    <!--                    <div class="mb-3">-->
+                    <!--                        <label for="senhaEditar" class="form-label">Nova Senha</label>-->
+                    <!--                        <input type="password" class="form-control" id="senhaEditar" name="senha" placeholder="Digite sua senha">-->
+                    <!--                    </div>-->
+                    <!---->
+                    <!--                    <div class="mb-3">-->
+                    <!--                        <label for="confirmarSenhaEditar" class="form-label">Confirmar Senha</label>-->
+                    <!--                        <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmaSenha" placeholder="Digite a senha novamente">-->
+                    <!--                    </div>-->
 
                     <button type="submit" class="btn btn-primary">Salvar alterações</button>
                 </form>
-
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Modal de Exclusão -->
 <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
