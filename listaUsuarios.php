@@ -1,31 +1,52 @@
 <?php
-include 'conexao.php';
+    include 'conexao.php';
 
-$idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
-$idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
-$novoNome = isset($_POST['nome']) ? $_POST['nome'] : null;
-$novoEmail = isset($_POST['email']) ? $_POST['email'] : null;
-$tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : null;
-$senha = isset($_POST['senha']) ? $_POST['senha'] : null;
-$confirmaSenha = isset($_POST['confirmaSenha']) ? $_POST['confirmaSenha'] : null;
+    $idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
+    $idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
+    $novoNome = isset($_POST['nome']) ? $_POST['nome'] : null;
+    $novoEmail = isset($_POST['email']) ? $_POST['email'] : null;
+    $tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : null;
+    $senha = isset($_POST['senha']) ? $_POST['senha'] : null;
+    $confirmaSenha = isset($_POST['confirmaSenha']) ? $_POST['confirmaSenha'] : null;
 
-$sqlListagem = "SELECT * FROM usuario";
-$resultado = $conn->query($sqlListagem);
+    $sqlListagem = "SELECT * FROM usuario";
+    $resultado = $conn->query($sqlListagem);
 
-if ($idEditar && $novoNome && $novoEmail && $tipoUsuario) {
-    $sql_edita = "UPDATE usuario SET nome = '$novoNome', email = '$novoEmail', tipoUsuario = '$tipoUsuario' WHERE id = '$idEditar'";
-    $resultado_edita = $conn->query($sql_edita);
-}
+    if ($idEditar && $novoNome && $novoEmail && $tipoUsuario) {
+        $sql_edita = "UPDATE usuario SET nome = '$novoNome', email = '$novoEmail', tipoUsuario = '$tipoUsuario' WHERE id = '$idEditar'";
+        $resultado_edita = $conn->query($sql_edita);
+        echo "<script>
+                    window.onload = function() {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Usuario atualizado com sucesso!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                  </script>";
+    }
 
-if ($senha === $confirmaSenha && $idEditar) {
-    $sqlEditaSenha = "UPDATE usuario SET senha = '$senha' WHERE id = '$idEditar'";
-    $resultadoEditaSenha = $conn->query($sqlEditaSenha);
-}
+    //if ($senha === $confirmaSenha && $idEditar) {
+    //    $sqlEditaSenha = "UPDATE usuario SET senha = '$senha' WHERE id = '$idEditar'";
+    //    $resultadoEditaSenha = $conn->query($sqlEditaSenha);
+    //}
 
-if ($idExcluir) {
-    $sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
-    $resultado_excluir = $conn->query($sql_excluir);
-}
+    if ($idExcluir) {
+        $sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
+        $resultado_excluir = $conn->query($sql_excluir);
+        echo "<script>
+                    window.onload = function() {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Usuario excluído com sucesso!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                  </script>";
+
+    }
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +56,7 @@ if ($idExcluir) {
     <title>Listagem de Usuários</title>
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
 
 </head>
 <header class="header">
@@ -107,7 +129,6 @@ if ($idExcluir) {
             }
             ?>
             </tbody>
-        </table>
     <?php else: ?>
         <p class="alert alert-warning">Não há usuários registrados.</p>
     <?php endif; ?>
@@ -143,15 +164,15 @@ if ($idExcluir) {
                         </select>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="senhaEditar" class="form-label">Nova Senha</label>
-                        <input type="password" class="form-control" id="senhaEditar" name="senha" placeholder="Digite sua senha">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="confirmarSenhaEditar" class="form-label">Confirmar Senha</label>
-                        <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmaSenha" placeholder="Digite a senha novamente">
-                    </div>
+<!--                    <div class="mb-3">-->
+<!--                        <label for="senhaEditar" class="form-label">Nova Senha</label>-->
+<!--                        <input type="password" class="form-control" id="senhaEditar" name="senha" placeholder="Digite sua senha">-->
+<!--                    </div>-->
+<!---->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="confirmarSenhaEditar" class="form-label">Confirmar Senha</label>-->
+<!--                        <input type="password" class="form-control" id="confirmarSenhaEditar" name="confirmaSenha" placeholder="Digite a senha novamente">-->
+<!--                    </div>-->
 
                     <button type="submit" class="btn btn-primary">Salvar alterações</button>
                 </form>
@@ -208,5 +229,6 @@ if ($idExcluir) {
         });
     });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
