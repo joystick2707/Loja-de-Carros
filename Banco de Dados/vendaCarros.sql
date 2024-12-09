@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 03/12/2024 às 14:56
+-- Tempo de geração: 09/12/2024 às 15:35
 -- Versão do servidor: 8.0.40-0ubuntu0.24.04.1
 -- Versão do PHP: 8.3.6
 
@@ -249,6 +249,26 @@ INSERT INTO `brands` (`id`, `name`, `category`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `carrinho`
+--
+
+CREATE TABLE `carrinho` (
+  `id` int NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `preco` decimal(10,2) NOT NULL,
+  `imagem` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `carrinho`
+--
+
+INSERT INTO `carrinho` (`id`, `nome`, `preco`, `imagem`) VALUES
+(1, 'teste', 124.00, '');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `carros`
 --
 
@@ -256,7 +276,7 @@ CREATE TABLE `carros` (
   `id` int NOT NULL,
   `marca` varchar(200) NOT NULL,
   `modelo` varchar(100) NOT NULL,
-  `preco` float NOT NULL,
+  `preco` float(10,2) NOT NULL,
   `descricao` varchar(200) NOT NULL,
   `cor` varchar(50) NOT NULL,
   `imagem` varchar(100) NOT NULL
@@ -267,10 +287,9 @@ CREATE TABLE `carros` (
 --
 
 INSERT INTO `carros` (`id`, `marca`, `modelo`, `preco`, `descricao`, `cor`, `imagem`) VALUES
-(28, '2', '', 3000000, 'SUV de luxo com design moderno e distinto, tecnologia avançada e desempenho.', 'Prata', '../img/perfil/674e04ab8f973.jpg'),
-(30, '7', 'X1', 318.95, 'Um SUV ai', 'Preto', '../img/perfil/674e08b11d17a.png'),
-(31, '6', 'Uno Quadrado', 15000, 'Mantém as características dinâmicas da Ferrari Roma, com chassi de alumínio e ao motor V8 de 620 hp.', 'Rosa', '../img/perfil/674e1761c7a86.jpg'),
-(32, '4', 'dsag', 4684570, 'sdg', 'sdg', '../img/perfil/674e1da0e95f9.jpg');
+(33, '6', 'Uno Quadrado', 15000.00, 'SUV de luxo com design moderno e distinto, tecnologia avançada e desempenho.', 'Prata', '../img/perfil/6751d0b607c14.jpg'),
+(36, '7', 'X1', 750000.00, 'Mantém as características dinâmicas da Ferrari Roma, com chassi de alumínio e ao motor V8 de 620 hp.', 'Branca', '../img/perfil/675356c695a64.jpg'),
+(37, '7', 'X1', 750000.00, 'Mantém as características dinâmicas da Ferrari Roma, com chassi de alumínio e ao motor V8 de 620 hp.', 'Branca', '../img/perfil/675356cb2fc5b.jpg');
 
 -- --------------------------------------------------------
 
@@ -291,12 +310,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipoUsuario`) VALUES
-(1, 'Bryan', 'bryan@gmail.com', '1303', 'ADM'),
-(3, 'Lucas Juan', 'lucasJuan@gmail.com', '5263', 'ADM'),
-(6, 'Marcos Abreu', 'marcosAbreu@gmail.com', '123', 'Padrão'),
-(7, 'Gabriel Augusto', 'gabrielAugusto@gmail.com', '123', 'Padrão'),
-(8, 'Paul Cezar', 'pauloCezar@gmail.com', '123', 'Padrão'),
-(18, 'Kamila Mendes', 'kamila@gmail.com', '123', 'Padrão');
+(29, 'Bryan Strey', 'bryan8745@hotmail.com', '1303', 'ADM'),
+(32, 'Stefany Amorin', 'stefany@gmail.com', '159753', 'Padrão'),
+(38, 'Lucas Juan', 'lucasJuan@gmail.com', '159753', 'ADM');
 
 --
 -- Índices para tabelas despejadas
@@ -306,6 +322,12 @@ INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipoUsuario`) VALUES
 -- Índices de tabela `brands`
 --
 ALTER TABLE `brands`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `carrinho`
+--
+ALTER TABLE `carrinho`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -334,13 +356,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT de tabela `carros`
 --
 ALTER TABLE `carros`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
