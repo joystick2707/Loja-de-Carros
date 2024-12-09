@@ -133,7 +133,7 @@ if ($idExcluir) {
         ?>
         </tbody>
         <?php else: ?>
-            <p class="alert alert-warning">Não há usuários registrados.</p>
+            <p class="alert alert-warning">Não há usuários registrados com esse nome ou email.</p>
         <?php endif; ?>
 </div>
 
