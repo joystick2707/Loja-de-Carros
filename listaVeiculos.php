@@ -9,7 +9,9 @@ $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : null;
 $cor = isset($_POST['cor']) ? $_POST['cor'] : null;
 $preco = isset($_POST['preco']) ? $_POST['preco'] : null;
 
-$sqlListagem = "SELECT * FROM carros";
+$sqlListagem = "SELECT carros.id, brands.name as marca, modelo, descricao, cor, preco 
+                FROM carros 
+                JOIN brands ON brands.id = carros.marca";
 $resultado = $conn->query($sqlListagem);
 
 if ($idEditar && $marca && $modelo && $descricao && $cor && $preco) {
@@ -22,7 +24,17 @@ if ($idExcluir) {
     $sqlRemover = "DELETE FROM carros WHERE id = '$idExcluir'";
     $resultado_excluir = $conn->query($sqlRemover);
 }
+
+$sql = "SELECT id, name FROM brands";
+$result = $conn->query($sql);
+
+$carroEditar = null;
+if ($idEditar) {
+    $sqlCarro = "SELECT * FROM carros WHERE id = '$idEditar'";
+    $carroEditar = $conn->query($sqlCarro)->fetch_assoc();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -99,7 +111,13 @@ if ($idExcluir) {
                 echo "<td>" . $row['cor'] . "</td>";
                 echo "<td>" . $row['preco'] . "</td>";
                 echo "<td class='d-flex justify-content-start'>";
-                echo "<button class='btn btn-warning btn-editar me-2' data-id='" . $row['id'] . "' data-marca='" . $row['marca'] . "' data-modelo='" . $row['modelo'] . "' data-descricao='" . $row['descricao'] . "' data-cor='" . $row['cor'] . "' data-preco='" . $row['preco'] . "'>Editar</button>";
+                echo "<button class='btn btn-warning btn-editar me-2' data-id='" . $row['id'] .
+                    "' data-marca='" . $row['marca'] .
+                    "' data-modelo='" . $row['modelo'] .
+                    "' data-descricao='" . $row['descricao'] .
+                    "' data-cor='" . $row['cor'] .
+                    "' data-preco='" . $row['preco'] .
+                    "'>Editar</button>";
                 echo "<button class='btn btn-danger btn-excluir' data-id='" . $row['id'] . "'>Excluir</button>";
                 echo "</td>";
                 echo "</tr>";
@@ -108,13 +126,13 @@ if ($idExcluir) {
             </tbody>
         </table>
     <?php else: ?>
-        <p class="alert alert-warning">Não há carros registrados.</p>
+        <p class="alert alert-warning">Não há carros registrados!</p>
     <?php endif; ?>
 </div>
 
 <!-- Modal de Edição -->
 <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 shadow-lg">
             <div class="modal-header border-bottom-0">
                 <h5 class="modal-title text-primary" id="modalEditarLabel">Editar Veículo</h5>
@@ -129,8 +147,8 @@ if ($idExcluir) {
                         <select class="form-select" id="marcaEditar" name="marca" required>
                             <option value="">Selecione a marca</option>
                             <?php
-                            while ($row = $resultado->fetch_assoc()) {
-                                echo "<option value='" . $row['id'] . "'>" . $row['marca'] . "</option>";
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
                             }
                             ?>
                         </select>
@@ -203,15 +221,18 @@ if ($idExcluir) {
             const preco = this.getAttribute('data-preco');
 
             document.getElementById('idEditar').value = id;
-            document.getElementById('marcaEditar').value = marca;
             document.getElementById('editarModelo').value = modelo;
             document.getElementById('editaDescricao').value = descricao;
             document.getElementById('corEditar').value = cor;
             document.getElementById('editaPreco').value = preco;
 
+            const marcaSelect = document.getElementById('marcaEditar');
+            marcaSelect.value = marca;
+
             modalEditar.show();
         });
     });
+
 
     document.querySelectorAll('.btn-excluir').forEach(button => {
         button.addEventListener('click', function () {
