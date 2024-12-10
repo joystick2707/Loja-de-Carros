@@ -37,14 +37,16 @@
     $termoPesquisa= isset($_POST['pesquisa']) ? $_POST['pesquisa'] : '';
 
     if($conn) {
-        $stmt = $conn->prepare("SELECT * FROM carros WHERE id like ? OR marca like? OR modelo like ? or cor like ? OR preco like ?");
+        $stmt = $conn->prepare("SELECT carros.id, brands.name as marca, modelo, descricao, cor, preco 
+                        FROM carros 
+                        JOIN brands ON brands.id = carros.marca
+                        WHERE carros.id LIKE ? OR brands.name LIKE ? OR modelo LIKE ? OR cor LIKE ? OR preco LIKE ?");
         $termoPesquisa = "%" . $termoPesquisa . "%";
         $stmt->bind_param('sssss', $termoPesquisa, $termoPesquisa, $termoPesquisa, $termoPesquisa, $termoPesquisa);
         $stmt->execute();
         $resultado = $stmt->get_result();
     }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
