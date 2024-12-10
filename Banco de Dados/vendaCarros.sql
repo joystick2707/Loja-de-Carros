@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 09/12/2024 às 20:08
+-- Tempo de geração: 10/12/2024 às 16:21
 -- Versão do servidor: 8.0.40-0ubuntu0.24.04.1
 -- Versão do PHP: 8.3.6
 
@@ -287,8 +287,12 @@ CREATE TABLE `carros` (
 --
 
 INSERT INTO `carros` (`id`, `marca`, `modelo`, `preco`, `descricao`, `cor`, `imagem`) VALUES
-(33, '4', 'Uno Quadrado', 745000, 'SUV de luxo com design moderno e distinto, tecnologia avançada e desempenho.', 'Vermelho', '../img/perfil/6751d0b607c14.jpg'),
-(37, '7', 'Teste', 150000, 'Mantém as características dinâmicas da Ferrari Roma, com chassi de alumínio e ao motor V8 de 620 hp.', 'Branca', '../img/perfil/675356cb2fc5b.jpg');
+(33, '4', 'Uno Quadrado', 745000, 'SUV de luxo com design moderno e distinto, tecnologia avançada e desempenho.', 'Prata', '../img/perfil/6751d0b607c14.jpg'),
+(38, '6', 'A3 Sedan', 220000, 'Um sedan compacto premium, equipado com motor turbo, design elegante e alta tecnologia no interior.', 'Branco Glacial', '../img/perfil/67585af3131bb.png'),
+(40, '6', 'Q3', 270000, 'SUV compacto com motor TFSI, interior espaçoso e tecnologias como painel digital Audi Virtual Cockpit.', ' Preto Mito', '../img/perfil/67585b5a6cc07.jpeg'),
+(41, '6', 'A4', 3000000, 'Sedan médio com motor 2.0 TFSI, tração integral quattro e acabamento refinado.', ' Azul Navarra', '../img/perfil/67585b7f68be1.jpeg'),
+(42, '6', 'Q5', 380000, 'SUV médio com foco em conforto e desempenho, equipado com tecnologia híbrida leve.', 'Cinza Manhattan', '../img/perfil/67585bac7a879.jpeg'),
+(43, '6', 'A6', 500000, 'Sedan executivo com motor 3.0 V6 TFSI, sistema de direção semiautônomo e amplo espaço interno.', 'Prata Florete', '../img/perfil/67585be6cfc0e.jpg');
 
 -- --------------------------------------------------------
 
@@ -327,7 +331,7 @@ INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipoUsuario`) VALUES
 (53, 'Lara Cardoso', 'lara.cardoso@outlook.com', 'LaraC@rdoso2024', 'Padrão'),
 (54, 'Diego Pereira', 'diego.pereira@gmail.com', 'Die2024@Pass!', 'ADM'),
 (55, 'Patrícia Alves', 'patricia.alves@gmail.com', 'Alves1234#', 'Padrão'),
-(56, 'Bruno Carvalho', 'bruno.carvalho@gmail.com', '	!Carv@lho789', 'ADM'),
+(56, 'Bruno Carvalho', 'bruno.carvalho@gmail.com', '	!Carv@lho789', 'Padrão'),
 (57, 'Bianca Mendes', 'bianca.mendes@gmail.com', '	Mendes@2024!', 'ADM'),
 (58, 'Thiago Barros', 'thiago.barros@gmail.com', 'Thi@go#2024', 'Padrão'),
 (59, 'Isabela Lopes', 'isabela.lopes@gmail.com', 'Isabela*123$', 'Padrão'),
@@ -379,13 +383,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT de tabela `carros`
 --
 ALTER TABLE `carros`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
