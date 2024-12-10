@@ -1,38 +1,48 @@
 <?php
-include 'conexao.php';
+    include 'conexao.php';
 
-$idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
-$idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
-$marca = isset($_POST['marca']) ? $_POST['marca'] : null;
-$modelo = isset($_POST['modelo']) ? $_POST['modelo'] : null;
-$descricao = isset($_POST['descricao']) ? $_POST['descricao'] : null;
-$cor = isset($_POST['cor']) ? $_POST['cor'] : null;
-$preco = isset($_POST['preco']) ? $_POST['preco'] : null;
+    $idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
+    $idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
+    $marca = isset($_POST['marca']) ? $_POST['marca'] : null;
+    $modelo = isset($_POST['modelo']) ? $_POST['modelo'] : null;
+    $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : null;
+    $cor = isset($_POST['cor']) ? $_POST['cor'] : null;
+    $preco = isset($_POST['preco']) ? $_POST['preco'] : null;
 
-$sqlListagem = "SELECT carros.id, brands.name as marca, modelo, descricao, cor, preco 
-                FROM carros 
-                JOIN brands ON brands.id = carros.marca";
-$resultado = $conn->query($sqlListagem);
+    $sqlListagem = "SELECT carros.id, brands.name as marca, modelo, descricao, cor, preco 
+                    FROM carros 
+                    JOIN brands ON brands.id = carros.marca";
+    $resultado = $conn->query($sqlListagem);
 
-if ($idEditar && $marca && $modelo && $descricao && $cor && $preco) {
-    $sqlEditar = "UPDATE carros SET marca = '$marca', modelo = '$modelo', preco = '$preco',
-                  descricao = '$descricao', cor = '$cor' WHERE id = '$idEditar'";
-    $resultadoEditar = $conn->query($sqlEditar);
-}
+    if ($idEditar && $marca && $modelo && $descricao && $cor && $preco) {
+        $sqlEditar = "UPDATE carros SET marca = '$marca', modelo = '$modelo', preco = '$preco',
+                      descricao = '$descricao', cor = '$cor' WHERE id = '$idEditar'";
+        $resultadoEditar = $conn->query($sqlEditar);
+    }
 
-if ($idExcluir) {
-    $sqlRemover = "DELETE FROM carros WHERE id = '$idExcluir'";
-    $resultado_excluir = $conn->query($sqlRemover);
-}
+    if ($idExcluir) {
+        $sqlRemover = "DELETE FROM carros WHERE id = '$idExcluir'";
+        $resultado_excluir = $conn->query($sqlRemover);
+    }
 
-$sql = "SELECT id, name FROM brands";
-$result = $conn->query($sql);
+    $sql = "SELECT id, name FROM brands";
+    $result = $conn->query($sql);
 
-$carroEditar = null;
-if ($idEditar) {
-    $sqlCarro = "SELECT * FROM carros WHERE id = '$idEditar'";
-    $carroEditar = $conn->query($sqlCarro)->fetch_assoc();
-}
+    $carroEditar = null;
+    if ($idEditar) {
+        $sqlCarro = "SELECT * FROM carros WHERE id = '$idEditar'";
+        $carroEditar = $conn->query($sqlCarro)->fetch_assoc();
+    }
+
+    $termoPesquisa= isset($_POST['pesquisa']) ? $_POST['pesquisa'] : '';
+
+    if($conn) {
+        $stmt = $conn->prepare("SELECT * FROM carros WHERE id like ? OR marca like? OR modelo like ? or cor like ? OR preco like ?");
+        $termoPesquisa = "%" . $termoPesquisa . "%";
+        $stmt->bind_param('sssss', $termoPesquisa, $termoPesquisa, $termoPesquisa, $termoPesquisa, $termoPesquisa);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+    }
 ?>
 
 
@@ -74,8 +84,8 @@ if ($idEditar) {
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
+                <form class="d-flex" role="search" method="POST">
+                    <input class="form-control me-2" type="search" name="pesquisa" placeholder="Search" aria-label="Search" style="margin-left:10px">
                     <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
                 </form>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
