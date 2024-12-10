@@ -1,18 +1,26 @@
 <?php
-include "conexao.php";
+    include "conexao.php";
 
-$query = "SELECT carros.id, name, modelo, cor, descricao, preco, imagem FROM `carros` join brands on brands.id = carros.marca";
-$result = $conn->query($query);
+    $query = "SELECT carros.id, name, modelo, cor, descricao, preco, imagem FROM `carros` join brands on brands.id = carros.marca";
+    $result = $conn->query($query);
 
-$query_compra = "INSERT INTO carrinho(nome, preco) VALUES (/*INFORMAÇÕES DOS VALORES*/)";
+    $query_compra = "INSERT INTO carrinho(nome, preco) VALUES (/*INFORMAÇÕES DOS VALORES*/)";
 
-if ($result->num_rows > 0) {
-    $carros = $result->fetch_all(MYSQLI_ASSOC);
-} else {
-    $carros = [];
-}
+    if ($result->num_rows > 0) {
+        $carros = $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        $carros = [];
+    }
 
-$conn->close();
+    $searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
+
+    if ($conn) {
+        $stmt = $conn->prepare("SELECT * FROM carros WHERE  marca LIKE ? OR modelo LIKE ?");
+        $searchTerm = "%" . $searchTerm . "%";
+        $stmt->bind_param('ss', $searchTerm, $searchTerm, );
+        $stmt->execute();
+        $result = $stmt->get_result();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -55,8 +63,8 @@ $conn->close();
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
+                <form class="d-flex" role="search" method="POST">
+                    <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
                     <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
                 </form>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
@@ -72,8 +80,8 @@ $conn->close();
                 <div class="card h-100">
                     <div class="card-body">
                         <img class="card-img-top" src="img/perfil/<?= basename($carro['imagem']) ?>" alt="foto do carro">
-                        <h5 class="card-title"><?= $carro['name'] ?></h5>
-                        <h5 class="card-text"><?= $carro['modelo'] ?></h5>
+                        <h3 class="card-title"><?= $carro['name'] ?></h3>
+                        <h3 class="card-text"><?= $carro['modelo'] ?></h3>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#carroModal"
                                 data-id="<?= $carro['id'] ?>" data-nome="<?= $carro['name'] ?>"
                                 data-descricao="<?= $carro['descricao'] ?>"
@@ -100,8 +108,8 @@ $conn->close();
                 <p><strong>Preço:</strong> R$ <span id="modalPreco"></span></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning">Editar</button>
-                <button type="button" class="btn btn-primary">Comprar</button>
+                <a href="listaVeiculos.php" class="btn btn-warning">Editar</a>
+                <a href="paginaCompra.php" class="btn btn-primary">Comprar</a>
             </div>
         </div>
     </div>
