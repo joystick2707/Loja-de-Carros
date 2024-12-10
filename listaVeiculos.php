@@ -18,11 +18,32 @@
         $sqlEditar = "UPDATE carros SET marca = '$marca', modelo = '$modelo', preco = '$preco',
                       descricao = '$descricao', cor = '$cor' WHERE id = '$idEditar'";
         $resultadoEditar = $conn->query($sqlEditar);
+
+        echo "<script>
+                    window.onload = function() {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Veículo atualizado com sucesso!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                  </script>";
     }
 
     if ($idExcluir) {
         $sqlRemover = "DELETE FROM carros WHERE id = '$idExcluir'";
         $resultado_excluir = $conn->query($sqlRemover);
+        echo "<script>
+                    window.onload = function() {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Veículo excluído com sucesso!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                  </script>";
     }
 
     $sql = "SELECT id, name FROM brands";
@@ -55,6 +76,7 @@
     <title>Listagem de Usuários</title>
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
 </head>
 <header class="header">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -219,6 +241,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
 <script>
     const modalExcluir = new bootstrap.Modal(document.getElementById('modalExcluir'));
     const modalEditar = new bootstrap.Modal(document.getElementById('modalEditar'));
