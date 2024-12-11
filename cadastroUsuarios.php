@@ -74,7 +74,7 @@
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="card p-4 shadow-lg" style="max-width: 500px; width: 100%;">
         <h3 class="text-center mb-4">Cadastro</h3>
-        <form action="cadastro.php" method="POST">
+        <form action="cadastroUsuarios.php" method="POST">
             <div class="mb-3">
                 <label for="inputNome" class="form-label">Nome Completo</label>
                 <input type="text" class="form-control" id="inputNome" placeholder="Digite seu nome completo" name="nome" required>
