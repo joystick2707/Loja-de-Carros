@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 10/12/2024 às 16:21
+-- Tempo de geração: 11/12/2024 às 17:13
 -- Versão do servidor: 8.0.40-0ubuntu0.24.04.1
 -- Versão do PHP: 8.3.6
 
@@ -317,7 +317,7 @@ INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipoUsuario`) VALUES
 (32, 'Stefany Amorin', 'stefany@gmail.com', '159753', 'Padrão'),
 (38, 'Lucas Juan', 'lucasJuan@gmail.com', '159753', 'ADM'),
 (40, 'Kamila Mendes', 'kamilaMendes7854@outlook.com.br', '84268426', 'Padrão'),
-(41, 'João Silva', 'joaoSilva@gmail.com', '	@SenhaForte123', 'Padrão'),
+(41, 'João Silva', 'joaoSilva@gmail.com', '@SenhaForte123', 'Padrão'),
 (42, 'Maria Oliveira', 'maria.oliveira@gmail.com', '#Segura@2024', 'ADM'),
 (43, 'Pedro Santos', 'pedro.santos@yahoo.com.br', '!Pass$word321', 'Padrão'),
 (44, 'Ana Costa', 'ana.costa@yahoo.com.br', 'Costa2024*', 'Padrão'),
@@ -326,13 +326,13 @@ INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipoUsuario`) VALUES
 (47, 'Felipe Lima', 'felipe.lima@gmail.com', 'Lima$ecret2024', 'Padrão'),
 (48, 'Camila Ramos', 'camila.ramos@yahoo.com.br', 'Ramos@#$123', 'Padrão'),
 (50, 'Rafael Martins', 'rafael.martins@gmail.com', 'SafePass2024!', 'Padrão'),
-(51, 'Vanessa Rocha', 'vanessa.rocha@gmail.com', '	!RochaSecure789', 'Padrão'),
+(51, 'Vanessa Rocha', 'vanessa.rocha@gmail.com', '!RochaSecure789', 'Padrão'),
 (52, 'Gustavo Azevedo', 'gustavo.azevedo@outlook.com', 'Gust@vo456!', 'Padrão'),
 (53, 'Lara Cardoso', 'lara.cardoso@outlook.com', 'LaraC@rdoso2024', 'Padrão'),
 (54, 'Diego Pereira', 'diego.pereira@gmail.com', 'Die2024@Pass!', 'ADM'),
 (55, 'Patrícia Alves', 'patricia.alves@gmail.com', 'Alves1234#', 'Padrão'),
-(56, 'Bruno Carvalho', 'bruno.carvalho@gmail.com', '	!Carv@lho789', 'Padrão'),
-(57, 'Bianca Mendes', 'bianca.mendes@gmail.com', '	Mendes@2024!', 'ADM'),
+(56, 'Bruno Carvalho', 'bruno.carvalho@gmail.com', '!Carv@lho789', 'Padrão'),
+(57, 'Bianca Mendes', 'bianca.mendes@gmail.com', 'Mendes@2024!', 'ADM'),
 (58, 'Thiago Barros', 'thiago.barros@gmail.com', 'Thi@go#2024', 'Padrão'),
 (59, 'Isabela Lopes', 'isabela.lopes@gmail.com', 'Isabela*123$', 'Padrão'),
 (60, 'Renan Duarte', 'renan.duarte@gmail.com', 'RenanSecure#21', 'ADM'),
