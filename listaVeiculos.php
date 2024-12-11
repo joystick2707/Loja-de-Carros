@@ -74,9 +74,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Listagem de Usuários</title>
-    <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <header class="header">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -110,7 +111,7 @@
                 </ul>
                 <form class="d-flex" role="search" method="POST">
                     <input class="form-control me-2" type="search" name="pesquisa" placeholder="Search" aria-label="Search" style="margin-left:10px">
-                    <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
+                    <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
                 </form>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
             </div>
