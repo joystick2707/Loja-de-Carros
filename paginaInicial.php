@@ -4,7 +4,7 @@
     $query = "SELECT carros.id, name, modelo, cor, descricao, preco, imagem FROM `carros` join brands on brands.id = carros.marca";
     $result = $conn->query($query);
 
-    $query_compra = "INSERT INTO carrinho(nome, preco) VALUES (/*INFORMAÇÕES DOS VALORES*/)";
+    $query_compra = "INSERT INTO carrinho(nome, preco) VALUES (/*INFORMACOES PARA O CARRINHO*/)";
 
     if ($result->num_rows > 0) {
         $carros = $result->fetch_all(MYSQLI_ASSOC);
@@ -28,9 +28,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Carros</title>
-    <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
+    <link id="themeLink" href="https://bootswatch.com/5/cosmo/bootstrap.min.css" rel="stylesheet">
+<!--    <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="icon" href="/img/perfil/car.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 <header class="header">
@@ -65,7 +68,7 @@
                 </ul>
                 <form class="d-flex" role="search" method="POST">
                     <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
-                    <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
+                    <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
                 </form>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
             </div>
@@ -109,7 +112,7 @@
             </div>
             <div class="modal-footer">
                 <a href="listaVeiculos.php" class="btn btn-warning">Editar</a>
-                <a href="paginaCompra.php" class="btn btn-primary">Comprar</a>
+                <a href="paginaCompra.php" class="btn btn-success">Comprar</a>
             </div>
         </div>
     </div>
