@@ -57,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                   </script>";
     } else {
-        // Caso algum campo não tenha sido preenchido
         echo "<script>
                     window.onload = function() {
                         Swal.fire({
@@ -85,6 +84,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="src/style/cadastroVeiculos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <header class="header">
