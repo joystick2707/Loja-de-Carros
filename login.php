@@ -61,7 +61,7 @@
             <button type="submit" class="btn btn-primary w-100" >Entrar</button>
         </form>
         <div class="text-center mt-3">
-            <small>Não tem uma conta? <a href="cadastro.php" class="text-decoration-none text-primary">Cadastre-se</a></small>
+            <small>Não tem uma conta? <a href="cadastroUsuarios.php" class="text-decoration-none text-primary">Cadastre-se</a></small>
         </div>
     </div>
 </div>
