@@ -1,53 +1,52 @@
 <?php
-include 'conexao.php';
+    include 'conexao.php';
 
-$idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
-$idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
-$novoNome = isset($_POST['nome']) ? $_POST['nome'] : null;
-$novoEmail = isset($_POST['email']) ? $_POST['email'] : null;
-$tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : null;
-$senha = isset($_POST['senha']) ? $_POST['senha'] : null;
-$confirmaSenha = isset($_POST['confirmaSenha']) ? $_POST['confirmaSenha'] : null;
+    $idExcluir = isset($_POST['id_excluir']) ? $_POST['id_excluir'] : null;
+    $idEditar = isset($_POST['idEditar']) ? $_POST['idEditar'] : null;
+    $novoNome = isset($_POST['nome']) ? $_POST['nome'] : null;
+    $novoEmail = isset($_POST['email']) ? $_POST['email'] : null;
+    $tipoUsuario = isset($_POST['tipoUsuario']) ? $_POST['tipoUsuario'] : null;
+    $senha = isset($_POST['senha']) ? $_POST['senha'] : null;
+    $confirmaSenha = isset($_POST['confirmaSenha']) ? $_POST['confirmaSenha'] : null;
 
-$searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
+    $searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
 
-if ($conn) {
-    $stmt = $conn->prepare("SELECT * FROM usuario WHERE id LIKE ? OR nome LIKE ? OR email LIKE ? OR tipoUsuario LIKE ?");
-    $searchTerm = "%" . $searchTerm . "%";
-    $stmt->bind_param('ssss', $searchTerm, $searchTerm, $searchTerm, $searchTerm);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-}
+    if ($conn) {
+        $stmt = $conn->prepare("SELECT * FROM usuario WHERE id LIKE ? OR nome LIKE ? OR email LIKE ? OR tipoUsuario LIKE ?");
+        $searchTerm = "%" . $searchTerm . "%";
+        $stmt->bind_param('ssss', $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+    }
 
-if ($idEditar && $novoNome && $novoEmail && $tipoUsuario) {
-    $sql_edita = "UPDATE usuario SET nome = '$novoNome', email = '$novoEmail', tipoUsuario = '$tipoUsuario' WHERE id = '$idEditar'";
-    $resultado_edita = $conn->query($sql_edita);
-    echo "<script>
-                    window.onload = function() {
-                        Swal.fire({
-                            title: 'Sucesso!',
-                            text: 'Usuário atualizado com sucesso!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                  </script>";
-}
-
-if ($idExcluir) {
-    $sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
-    $resultado_excluir = $conn->query($sql_excluir);
-    echo "<script>
-                    window.onload = function() {
-                        Swal.fire({
-                            title: 'Sucesso!',
-                            text: 'Usuário excluído com sucesso!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                  </script>";
-}
+    if ($idEditar && $novoNome && $novoEmail && $tipoUsuario) {
+        $sql_edita = "UPDATE usuario SET nome = '$novoNome', email = '$novoEmail', tipoUsuario = '$tipoUsuario' WHERE id = '$idEditar'";
+        $resultado_edita = $conn->query($sql_edita);
+        echo "<script>
+                        window.onload = function() {
+                            Swal.fire({
+                                title: 'Sucesso!',
+                                text: 'Usuário atualizado com sucesso!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                      </script>";
+    }
+    if ($idExcluir) {
+        $sql_excluir = "DELETE FROM usuario WHERE id = '$idExcluir'";
+        $resultado_excluir = $conn->query($sql_excluir);
+        echo "<script>
+                        window.onload = function() {
+                            Swal.fire({
+                                title: 'Sucesso!',
+                                text: 'Usuário excluído com sucesso!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                      </script>";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -58,12 +57,15 @@ if ($idExcluir) {
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <header class="header">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="paginaInicial.php"><img class="logo" src="img/perfil/car.png" alt="carro_logo"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="paginaInicial.php">
+                <img class="logo" src="img/perfil/car.png" alt="Logo do carro" style="max-height: 40px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Alternar navegação">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -72,32 +74,34 @@ if ($idExcluir) {
                         <a class="nav-link active" aria-current="page" href="paginaInicial.php">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownMenuLink">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Carros
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownMenuLink1">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Usuário
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="listaUsuarios.php">Listar</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search" method="POST" action="listaUsuarios.php">
-                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
-                    <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
+                <form class="d-flex align-items-center" role="search" method="POST" action="listaUsuarios.php">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Buscar" aria-label="Buscar">
+                    <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
                 </form>
-                <a class="btn btn-outline-danger" href="login.php">Sair</a>
+                <a class="btn btn-outline-danger ms-2" href="login.php">Sair</a>
             </div>
         </div>
     </nav>
+
 </header>
+
 <body>
 <div class="container">
     <h1 class="my-4 text-center">Lista de Usuários</h1>
