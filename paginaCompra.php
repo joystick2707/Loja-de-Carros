@@ -67,11 +67,6 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
-                    <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
-                </form>
-                <i class="fa-solid fa-cart-shopping" style="margin-right: 2%"></i>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
             </div>
         </div>
