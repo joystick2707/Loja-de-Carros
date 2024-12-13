@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 11/12/2024 às 17:13
+-- Tempo de geração: 13/12/2024 às 19:32
 -- Versão do servidor: 8.0.40-0ubuntu0.24.04.1
 -- Versão do PHP: 8.3.6
 
@@ -255,16 +255,15 @@ INSERT INTO `brands` (`id`, `name`, `category`) VALUES
 CREATE TABLE `carrinho` (
   `id` int NOT NULL,
   `nome` varchar(100) NOT NULL,
-  `preco` decimal(10,2) NOT NULL,
-  `imagem` varchar(100) NOT NULL
+  `preco` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `carrinho`
 --
 
-INSERT INTO `carrinho` (`id`, `nome`, `preco`, `imagem`) VALUES
-(1, 'teste', 124.00, '');
+INSERT INTO `carrinho` (`id`, `nome`, `preco`) VALUES
+(21, 'AM Gen', 15000.00);
 
 -- --------------------------------------------------------
 
@@ -276,7 +275,7 @@ CREATE TABLE `carros` (
   `id` int NOT NULL,
   `marca` varchar(200) NOT NULL,
   `modelo` varchar(100) NOT NULL,
-  `preco` decimal(10,0) NOT NULL,
+  `preco` varchar(30) NOT NULL,
   `descricao` varchar(200) NOT NULL,
   `cor` varchar(50) NOT NULL,
   `imagem` varchar(100) NOT NULL
@@ -287,12 +286,13 @@ CREATE TABLE `carros` (
 --
 
 INSERT INTO `carros` (`id`, `marca`, `modelo`, `preco`, `descricao`, `cor`, `imagem`) VALUES
-(33, '4', 'Uno Quadrado', 745000, 'SUV de luxo com design moderno e distinto, tecnologia avançada e desempenho.', 'Prata', '../img/perfil/6751d0b607c14.jpg'),
-(38, '6', 'A3 Sedan', 220000, 'Um sedan compacto premium, equipado com motor turbo, design elegante e alta tecnologia no interior.', 'Branco Glacial', '../img/perfil/67585af3131bb.png'),
-(40, '6', 'Q3', 270000, 'SUV compacto com motor TFSI, interior espaçoso e tecnologias como painel digital Audi Virtual Cockpit.', ' Preto Mito', '../img/perfil/67585b5a6cc07.jpeg'),
-(41, '6', 'A4', 3000000, 'Sedan médio com motor 2.0 TFSI, tração integral quattro e acabamento refinado.', ' Azul Navarra', '../img/perfil/67585b7f68be1.jpeg'),
-(42, '6', 'Q5', 380000, 'SUV médio com foco em conforto e desempenho, equipado com tecnologia híbrida leve.', 'Cinza Manhattan', '../img/perfil/67585bac7a879.jpeg'),
-(43, '6', 'A6', 500000, 'Sedan executivo com motor 3.0 V6 TFSI, sistema de direção semiautônomo e amplo espaço interno.', 'Prata Florete', '../img/perfil/67585be6cfc0e.jpg');
+(33, '4', 'Uno Quadrado', '15000', 'SUV de luxo com design moderno e distinto, tecnologia avançada e desempenho.', 'Prata', '../img/perfil/6751d0b607c14.jpg'),
+(38, '6', 'A3 Sedan', '220000.00', 'Um sedan compacto premium, equipado com motor turbo, design elegante e alta tecnologia no interior.', 'Branco Glacial', '../img/perfil/67585af3131bb.png'),
+(40, '6', 'Q3', '270000.00', 'SUV compacto com motor TFSI, interior espaçoso e tecnologias como painel digital Audi Virtual Cockpit.', ' Preto Mito', '../img/perfil/67585b5a6cc07.jpeg'),
+(41, '6', 'A4', '3000000.00', 'Sedan médio com motor 2.0 TFSI, tração integral quattro e acabamento refinado.', ' Azul Navarra', '../img/perfil/67585b7f68be1.jpeg'),
+(42, '6', 'Q5', '380000.00', 'SUV médio com foco em conforto e desempenho, equipado com tecnologia híbrida leve.', 'Cinza Manhattan', '../img/perfil/67585bac7a879.jpeg'),
+(43, '6', 'A6', '500000.00', 'Sedan executivo com motor 3.0 V6 TFSI, sistema de direção semiautônomo e amplo espaço interno.', 'Prata Florete', '../img/perfil/67585be6cfc0e.jpg'),
+(44, '140', 'Teste de modelo', '185000', 'Teste de descrição', 'Branco', '../img/perfil/675c7aa9cc2bf.jpg');
 
 -- --------------------------------------------------------
 
@@ -380,16 +380,22 @@ ALTER TABLE `brands`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
 
 --
+-- AUTO_INCREMENT de tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- AUTO_INCREMENT de tabela `carros`
 --
 ALTER TABLE `carros`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
