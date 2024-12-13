@@ -4,8 +4,6 @@
     $query = "SELECT carros.id, name, modelo, cor, descricao, preco, imagem FROM `carros` join brands on brands.id = carros.marca";
     $result = $conn->query($query);
 
-    $query_compra = "INSERT INTO carrinho(nome, preco) VALUES (/*INFORMACOES PARA O CARRINHO*/)";
-
     if ($result->num_rows > 0) {
         $carros = $result->fetch_all(MYSQLI_ASSOC);
     } else {
@@ -27,9 +25,8 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Carros</title>
+    <title>Página Inicial</title>
     <link id="themeLink" href="https://bootswatch.com/5/cosmo/bootstrap.min.css" rel="stylesheet">
-<!--    <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="icon" href="/img/perfil/car.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -55,6 +52,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
+                            <li><a class="dropdown-item" href="paginaCompra.php">Carrinho</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -98,7 +96,7 @@
 </main>
 
 <div class="modal fade" id="carroModal" tabindex="-1" aria-labelledby="carroModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-wide modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="carroModalLabel">Detalhes do Carro</h5>
@@ -112,11 +110,34 @@
             </div>
             <div class="modal-footer">
                 <a href="listaVeiculos.php" class="btn btn-warning">Editar</a>
-                <a href="paginaCompra.php" class="btn btn-success">Comprar</a>
+                <div class="modal-footer">
+                    <form method="POST" action="carrinho.php">
+                        <input type="hidden" name="nome" id="hiddenNome">
+                        <input type="hidden" name="preco" id="hiddenPreco">
+                        <button type="submit" class="btn btn-success">Comprar</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .modal-wide {
+        max-width: 50%;
+    }
+
+    .modal-wide .modal-content {
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .modal-wide {
+            max-width: 95%;
+        }
+    }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -134,11 +155,18 @@
         const modalPreco = document.getElementById('modalPreco');
         const modalImagem = document.getElementById('modalImagem');
 
+        const hiddenNome = document.getElementById('hiddenNome');
+        const hiddenPreco = document.getElementById('hiddenPreco');
+
         modalNome.textContent = nome;
         modalDescricao.textContent = descricao;
         modalPreco.textContent = preco;
         modalImagem.src = imagem;
+
+        hiddenNome.value = nome;
+        hiddenPreco.value = preco;
     });
 </script>
+
 </body>
 </html>
