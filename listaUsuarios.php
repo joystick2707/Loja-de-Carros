@@ -54,7 +54,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Listagem de Usuários</title>
-    <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -125,7 +125,7 @@
             echo "<td>" . $row['email'] . "</td>";
             echo "<td>" . $row['tipoUsuario'] . "</td>";
             echo "<td>";
-            echo "<button class='btn btn-warning btn-editar' data-id='" . $row['id'] . "' data-nome='" . $row['nome'] . "' data-email='" . $row['email'] . "'>Editar</button>";
+            echo "<button class='btn btn-warning btn-editar' data-id='" . $row['id'] . "' data-nome='" . $row['nome'] . "' data-email='" . $row['email'] . "'data-tipo-usuario='" . $row['tipoUsuario'] . "'>Editar</button>";
             echo "<button class='btn btn-danger btn-excluir' data-id='" . $row['id'] . "'>Excluir</button>";
             echo "</td>";
             echo "</tr>";
@@ -133,7 +133,7 @@
         ?>
         </tbody>
         <?php else: ?>
-            <p class="alert alert-warning">Não há usuários registrados com esse nome ou email.</p>
+            <p class="alert alert-warning">Não há usuários registrados com esse nome/email.</p>
         <?php endif; ?>
 </div>
 
