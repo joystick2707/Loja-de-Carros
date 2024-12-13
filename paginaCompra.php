@@ -38,11 +38,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Carrinho de Compras</title>
-    <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/paginaCompra.css">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link id="themeLink" href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
@@ -93,11 +93,11 @@
             <table class="table table-bordered table-centered">
                 <thead>
                 <tr>
-<!--                    <th scope="col">Imagem</th>-->
-                    <th scope="col">Nome</th>
-                    <th scope="col">Preço</th>
-                    <th scope="col">Quantidade</th>
-                    <th scope="col">Remover</th>
+                    <!-- <th scope="col">Imagem</th> -->
+                    <th scope="col" class="text-center">Nome</th>
+                    <th scope="col" class="text-center">Preço</th>
+                    <th scope="col" class="text-center">Quantidade</th>
+                    <th scope="col" class="text-center">Remover</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -109,7 +109,7 @@
                     $total += $totalCarro;
                     ?>
                     <tr>
-<!--                        <td><img src="img/cars/--><?php //= $carro['imagem'] ?><!--" alt="--><?php //= $carro['nome'] ?><!--" class="img-fluid" width="100"></td>-->
+                        <!-- <td><img src="img/cars/<?= $carro['imagem'] ?>" alt="<?= $carro['nome'] ?>" class="img-fluid" width="100"></td> -->
                         <td><?= $carro['nome'] ?></td>
                         <td>R$ <?= number_format($preco, 2, '.', '.') ?></td>
                         <td><?= $quantidade ?></td>
@@ -127,7 +127,7 @@
     </div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
