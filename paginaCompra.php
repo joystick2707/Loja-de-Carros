@@ -76,10 +76,6 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search" method="POST">
-                    <input class="form-control me-2" type="search" name="pesquisa" placeholder="Search" aria-label="Search" style="margin-left:10px">
-                    <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
-                </form>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
             </div>
         </div>
