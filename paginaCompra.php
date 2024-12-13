@@ -38,11 +38,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Carrinho de Compras</title>
-    <link href="https://bootswatch.com/5/cosmo/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/paginaCompra.css">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link id="themeLink" href="https://bootswatch.com/5/cosmo/bootstrap.min.css" rel="stylesheet">
+    <link id="themeLink" href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
@@ -77,7 +77,7 @@
                     </li>
                 </ul>
                 <form class="d-flex" role="search" method="POST">
-                    <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
+                    <input class="form-control me-2" type="search" name="pesquisa" placeholder="Search" aria-label="Search" style="margin-left:10px">
                     <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
                 </form>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
@@ -93,11 +93,10 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th scope="col">Imagem</th>
+<!--                    <th scope="col">Imagem</th>-->
                     <th scope="col">Nome</th>
                     <th scope="col">Preço</th>
                     <th scope="col">Quantidade</th>
-                    <th scope="col">Total</th>
                     <th scope="col">Remover</th>
                 </tr>
                 </thead>
@@ -110,11 +109,10 @@
                     $total += $totalCarro;
                     ?>
                     <tr>
-                        <td><img src="img/cars/<?= $carro['imagem'] ?>" alt="<?= $carro['nome'] ?>" class="img-fluid" width="100"></td>
+<!--                        <td><img src="img/cars/--><?php //= $carro['imagem'] ?><!--" alt="--><?php //= $carro['nome'] ?><!--" class="img-fluid" width="100"></td>-->
                         <td><?= $carro['nome'] ?></td>
-                        <td>R$ <?= number_format($preco, 2, ',', '.') ?></td>
+                        <td>R$ <?= number_format($preco, 2, '.', '.') ?></td>
                         <td><?= $quantidade ?></td>
-                        <td>R$ <?= number_format($totalCarro, 2, ',', '.') ?></td>
                         <td><a href="paginaCompra.php?id=<?= $carro['id'] ?>" class="btn btn-danger btn-sm">Remover</a></td>
                     </tr>
                 <?php endforeach; ?>
@@ -123,7 +121,7 @@
         </div>
 
         <div class="text-end">
-            <h3>Total: R$ <?= number_format($total, 2, ',', '.') ?></h3>
+            <h3>Total: R$ <?= number_format($total, 2, '.', '.') ?></h3>
             <a href="paginaCompra.php" class="btn btn-success">Finalizar Compra</a>
         </div>
     </div>
