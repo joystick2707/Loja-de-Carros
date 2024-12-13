@@ -80,7 +80,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Veículos</title>
-    <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="src/style/cadastroVeiculos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
@@ -106,6 +106,7 @@ $result = $conn->query($sql);
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
+                            <li><a class="dropdown-item" href="paginaCompra.php">Carrinho</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
