@@ -31,6 +31,10 @@
     }
 
     $total = 0;
+
+
+//    $limpaCarrinho = "DELETE FROM carrinho WHERE idCarrinho = $idCarro";
+//    $limpaCarrinhoResultado = $conn->query($limpaCarrinho);
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +42,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Carrinho de Compras</title>
-    <link rel="stylesheet" href="src/style/paginaCompra.css">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link id="themeLink" href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
@@ -90,7 +93,7 @@
                 <thead>
                 <tr>
                     <!-- <th scope="col">Imagem</th> -->
-                    <th scope="col" class="text-center">Nome</th>
+                    <th scope="col" class="text-center">Marca</th>
                     <th scope="col" class="text-center">Preço</th>
                     <th scope="col" class="text-center">Quantidade</th>
                     <th scope="col" class="text-center">Remover</th>
@@ -118,7 +121,7 @@
 
         <div class="text-end">
             <h3>Total: R$ <?= number_format($total, 2, '.', '.') ?></h3>
-            <button class="btn btn-success" type="submit">Finalizar Compra</button>
+            <button class="btn btn-success" type="submit" name="button">Finalizar Compra</button>
         </div>
     </div>
 </main>
