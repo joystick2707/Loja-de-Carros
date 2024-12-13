@@ -73,7 +73,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Listagem de Usuários</title>
+    <title>Listagem de Veículos</title>
     <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
@@ -268,7 +268,6 @@
             modalEditar.show();
         });
     });
-
 
     document.querySelectorAll('.btn-excluir').forEach(button => {
         button.addEventListener('click', function () {
