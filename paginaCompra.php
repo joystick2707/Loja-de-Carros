@@ -1,6 +1,26 @@
 <?php
     include 'conexao.php';
 
+    if (isset($_GET['id'])) {
+        $idCarro = (int)$_GET['id'];
+        $excluiCarrinho = "DELETE FROM carrinho WHERE id = $idCarro";
+
+        if ($conn->query($excluiCarrinho) === TRUE) {
+            echo "<script>
+                    window.onload = function() {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Veículo removido do carrinho com sucesso!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                  </script>";
+        } else {
+            echo "<script>alert('Erro ao remover item.'); window.location.href = 'paginaCompra.php';</script>";
+        }
+    }
+
     $sql = "SELECT * FROM carrinho";
     $result = $conn->query($sql);
 
@@ -10,36 +30,24 @@
         $carros = [];
     }
 
-    /*
-       if($result){
-        echo "<script>
-                    window.onload = function() {
-                        Swal.fire({
-                            title: 'Sucesso!',
-                            text: 'Compra realizada com sucesso!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                  </script>";
-    }
-    */
+    $total = 0;
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Página de Compra</title>
-    <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
+    <title>Carrinho de Compras</title>
+    <link href="https://bootswatch.com/5/cosmo/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/paginaCompra.css">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link id="themeLink" href="https://bootswatch.com/5/cosmo/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
+        <div class="container-fluid">
             <a class="navbar-brand" href="paginaInicial.php"><img class="logo" src="img/perfil/car.png" alt="carro_logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -56,6 +64,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
+                            <li><a class="dropdown-item" href="paginaCompra.php">Carrinho</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -67,26 +76,60 @@
                         </ul>
                     </li>
                 </ul>
+                <form class="d-flex" role="search" method="POST">
+                    <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
+                    <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
+                </form>
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
             </div>
         </div>
     </nav>
 </header>
-<main class="main-pagina-compras">
-    <div class="row row-cols-1 row-cols-md-3 g-4" style="gap: 0%;">
-        <?php foreach ($carros as $carro): ?>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $carro['nome'] ?></h5>
-                        <p class="card-text"><strong>Preço:</strong> R$ <?= $carro['preco'] ?></p>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
+
+<main class="main-pagina-carrinho">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Carrinho de Compras</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Imagem</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Remover</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($carros as $carro):
+                    $preco = (float)$carro['preco'];
+                    $quantidade = 1;
+
+                    $totalCarro = $preco * $quantidade;
+                    $total += $totalCarro;
+                    ?>
+                    <tr>
+                        <td><img src="img/cars/<?= $carro['imagem'] ?>" alt="<?= $carro['nome'] ?>" class="img-fluid" width="100"></td>
+                        <td><?= $carro['nome'] ?></td>
+                        <td>R$ <?= number_format($preco, 2, ',', '.') ?></td>
+                        <td><?= $quantidade ?></td>
+                        <td>R$ <?= number_format($totalCarro, 2, ',', '.') ?></td>
+                        <td><a href="paginaCompra.php?id=<?= $carro['id'] ?>" class="btn btn-danger btn-sm">Remover</a></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-end">
+            <h3>Total: R$ <?= number_format($total, 2, ',', '.') ?></h3>
+            <a href="paginaCompra.php" class="btn btn-success">Finalizar Compra</a>
+        </div>
     </div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
