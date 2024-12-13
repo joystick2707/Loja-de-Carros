@@ -110,15 +110,14 @@
 }
 /* CSS DA TABELA DE USUARIOS */
 
-/* Personalizando a tabela para reduzir o tamanho */
 table {
     margin-top: 20px;
-    font-size: 0.9rem; /* Diminui o tamanho da fonte */
-    width: 100%; /* Tabela ocupa toda a largura possível */
+    font-size: 0.9rem;
+    width: 100%;
 }
 
 th, td {
-    padding: 8px; /* Diminui o padding das células */
+    padding: 8px;
     text-align: center;
 }
 
@@ -141,12 +140,12 @@ tbody tr:hover {
 
 .btn-editar, .btn-excluir {
     margin: 2px 5px;
-    font-size: 0.8rem; /* Diminui o tamanho dos botões */
+    font-size: 0.8rem;
 }
 
 .container {
-    max-width: 900px; /* Limita o tamanho da tabela */
-    margin: 0 auto; /* Centraliza o conteúdo */
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .btn-editar, .btn-excluir {
@@ -197,4 +196,12 @@ tbody tr:hover {
     }
 }
 
+.modal{
+    max-width: 100%;
+}
 
+.img-fluid{
+    height: 50%;
+    width: 50%;
+    margin-left: 25%;
+}
