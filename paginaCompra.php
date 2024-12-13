@@ -90,7 +90,7 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">Carrinho de Compras</h2>
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-centered">
                 <thead>
                 <tr>
 <!--                    <th scope="col">Imagem</th>-->
@@ -122,7 +122,7 @@
 
         <div class="text-end">
             <h3>Total: R$ <?= number_format($total, 2, '.', '.') ?></h3>
-            <a href="paginaCompra.php" class="btn btn-success">Finalizar Compra</a>
+            <button class="btn btn-success" type="submit">Finalizar Compra</button>
         </div>
     </div>
 </main>
