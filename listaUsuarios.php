@@ -80,7 +80,6 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
-                            <li><a class="dropdown-item" href="paginaCompra.php">Carrinho</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -92,6 +91,10 @@
                         </ul>
                     </li>
                 </ul>
+                <div class="carrinho-container">
+                    <a class="carrinho" href="paginaCompra.php">Carrinho</a>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
                 <form class="d-flex align-items-center" role="search" method="POST" action="listaUsuarios.php">
                     <input class="form-control me-2" type="search" name="search" placeholder="Buscar" aria-label="Buscar">
                     <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
