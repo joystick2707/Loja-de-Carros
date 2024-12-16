@@ -98,7 +98,6 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
-                            <li><a class="dropdown-item" href="paginaCompra.php">Carrinho</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -110,6 +109,10 @@
                         </ul>
                     </li>
                 </ul>
+                <div class="carrinho-container">
+                    <a class="carrinho" href="paginaCompra.php">Carrinho</a>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
                 <form class="d-flex" role="search" method="POST">
                     <input class="form-control me-2" type="search" name="pesquisa" placeholder="Buscar" aria-label="Search" style="margin-left:10px">
                     <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
