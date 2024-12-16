@@ -119,7 +119,7 @@
                     <form method="POST" action="carrinho.php">
                         <input type="hidden" name="nome" id="hiddenNome">
                         <input type="hidden" name="preco" id="hiddenPreco">
-                        <button type="submit" class="btn btn-success">Comprar</button>
+                        <button type="submit" class="btn btn-success">Adicionar ao Carrinho</button>
                     </form>
                 </div>
 
