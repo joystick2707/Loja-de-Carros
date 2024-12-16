@@ -26,7 +26,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Página Inicial</title>
-    <link id="themeLink" href="https://bootswatch.com/5/cosmo/bootstrap.min.css" rel="stylesheet">
+    <link id="themeLink" href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="icon" href="/img/perfil/car.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -34,7 +34,7 @@
 </head>
 <body>
 <header class="header">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="paginaInicial.php"><img class="logo" src="img/perfil/car.png" alt="carro_logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
-                            <li><a class="dropdown-item" href="paginaCompra.php">Carrinho</a></li>
+
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -64,6 +64,11 @@
                         </ul>
                     </li>
                 </ul>
+                <div class="carrinho-container">
+                    <a class="carrinho" href="paginaCompra.php">Carrinho</a>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+
                 <form class="d-flex" role="search" method="POST">
                     <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
                     <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
