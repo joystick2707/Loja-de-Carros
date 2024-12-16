@@ -16,14 +16,13 @@ body {
 }
 
 .carrinho {
-    text-decoration: none; /* Remove sublinhado do link */
-    color: inherit; /* Mantém a cor do texto */
-    font-size: 16px; /* Ajuste conforme necessário */
+    text-decoration: none; 
+    color: inherit; 
+    font-size: 16px; 
 }
 
 .fa-cart-shopping {
-    font-size: 16px; /* Ajusta o tamanho do ícone para corresponder ao texto */
-}
+    font-size: 16px; 
 
 
 .row {
