@@ -13,8 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_param("sd", $nome, $preco);
 
             if ($stmt->execute()) {
-                echo "Carro adicionado ao carrinho com sucesso!";
-                header("Location: paginaCompra.php");
+                echo "<script>
+                    alert('Carrinho cadastrado com sucesso!');
+                  </script>";
+                header("Location: paginaInicial.php");
                 exit();
             } else {
                 echo "Erro ao adicionar o carro ao carrinho: " . $stmt->error;
