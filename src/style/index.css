@@ -1,20 +1,59 @@
-.header{
+body {
+    overflow-x: hidden;
+}
+
+.container-fluid {
+    max-width: 100%;
+    margin-left: 1%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.carrinho-container {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 19%;
+}
+
+.carrinho {
+    text-decoration: none; /* Remove sublinhado do link */
+    color: inherit; /* Mantém a cor do texto */
+    font-size: 16px; /* Ajuste conforme necessário */
+}
+
+.fa-cart-shopping {
+    font-size: 16px; /* Ajusta o tamanho do ícone para corresponder ao texto */
+}
+
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.card-img-top {
+    max-width: 100%;
+    height: auto;
+}
+
+.header {
     background-color: red;
+}
+
+.main {
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 .d-flex {
     margin-right: 35%;
 }
 
-.navbar navbar-expand-lg bg-body-tertiary{
+.navbar.navbar-expand-lg.bg-body-tertiary {
     background-color: lightgray;
 }
 
-.container-fluid{
-    margin-left: 1%;
-}
-
-.card-container{
+.card-container {
     display: flex;
     margin-top: 5%;
     margin-left: 5%;
@@ -31,30 +70,23 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 70px;
 }
 
 .card-body button {
     align-self: center;
 }
 
-
-.logo{
+.logo {
     height: 40px;
     width: 40px;
 }
 
-/* CSS PAGINA DE MARCAS */
-
-.main-pagina-compras{
+.main-pagina-compras {
     height: 100%;
 }
 
-.card-body{
-    height: 70px;
-
-}
-
-.h-100{
+.h-100 {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -62,7 +94,7 @@
     width: 200px;
 }
 
-.col{
+.col {
     margin-top: 5%;
     margin-left: 8%;
     justify-items: center;
@@ -71,36 +103,34 @@
     height: 300px;
 }
 
-.card-img-top{
+.card-img-top {
     height: 40%;
     width: 100%;
 }
 
-.card-title{
+.card-title {
     font-size: 18px;
 }
 
-.card-text{
+.card-text {
     font-size: 11px;
 }
 
-.botao-compra, .compra{
+.botao-compra, .compra {
     text-decoration: none;
 }
 
-.compra:hover{
+.compra:hover {
     color: white;
 }
 
-/* CSS MODAL */
-
-.imagem-modal{
+.imagem-modal {
     margin-left: 30%;
     height: 40%;
     width: 40%;
 }
 
-.descricao_modal{
+.descricao_modal {
     margin-top: 10px;
     font-size: 14px;
 }
@@ -108,7 +138,6 @@
 .modal-lg-custom {
     max-width: 45%;
 }
-/* CSS DA TABELA DE USUARIOS */
 
 table {
     margin-top: 20px;
@@ -196,12 +225,26 @@ tbody tr:hover {
     }
 }
 
-.modal{
+.modal {
     max-width: 100%;
 }
 
-.img-fluid{
+.img-fluid {
     height: 50%;
     width: 50%;
     margin-left: 25%;
 }
+
+
+.navbar.navbar-expand-lg.bg-body-tertiary {
+    background-color: lightgray;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+}
+
+body {
+    padding-top: 56px;
+}
+
