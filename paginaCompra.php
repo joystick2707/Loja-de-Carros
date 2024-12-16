@@ -31,10 +31,6 @@
     }
 
     $total = 0;
-
-
-//    $limpaCarrinho = "DELETE FROM carrinho WHERE idCarrinho = $idCarro";
-//    $limpaCarrinhoResultado = $conn->query($limpaCarrinho);
 ?>
 
 <!DOCTYPE html>
@@ -118,7 +114,6 @@
                 </tbody>
             </table>
         </div>
-
         <div class="text-end">
             <h3>Total: R$ <?= number_format($total, 2, '.', '.') ?></h3>
             <button class="btn btn-success" type="submit" name="button">Finalizar Compra</button>
