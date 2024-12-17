@@ -27,7 +27,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "Dados insuficientes para adicionar ao carrinho.";
     }
-} else {
-    echo "Método inválido. Use POST para adicionar ao carrinho.";
-}
+} 
 ?>
