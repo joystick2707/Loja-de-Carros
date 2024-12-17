@@ -1,10 +1,40 @@
 <?php
     include 'conexao.php';
 
+    // retira todos os itens do carrinho
+    if (isset($_POST['finalizar_compra'])) {
+        $sql = "DELETE FROM carrinho";
+        if ($conn->query($sql) === TRUE) {
+            echo "<script>
+                    window.onload = function() {
+                        Swal.fire({
+                            title: 'Compra Finalizada!',
+                            text: 'Seu carrinho foi esvaziado com sucesso!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            window.location.href = 'paginaCompra.php';
+                        });
+                    }
+                  </script>";
+        } else {
+            echo "<script>
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: 'Ocorreu um erro ao finalizar a compra.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'paginaCompra.php';
+                    });
+                  </script>";
+        }
+    }
+
+    // remove um item especifico do carrinho
     if (isset($_GET['id'])) {
         $idCarro = (int)$_GET['id'];
         $excluiCarrinho = "DELETE FROM carrinho WHERE id = $idCarro";
-
         if ($conn->query($excluiCarrinho) === TRUE) {
             echo "<script>
                     window.onload = function() {
@@ -13,11 +43,22 @@
                             text: 'Veículo removido do carrinho com sucesso!',
                             icon: 'success',
                             confirmButtonText: 'OK'
+                        }).then(() => {
+                            window.location.href = 'paginaCompra.php';
                         });
                     }
                   </script>";
         } else {
-            echo "<script>alert('Erro ao remover item.'); window.location.href = 'paginaCompra.php';</script>";
+            echo "<script>
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: 'Erro ao remover item.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'paginaCompra.php';
+                    });
+                  </script>";
         }
     }
 
@@ -32,6 +73,7 @@
 
     $total = 0;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -63,7 +105,6 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
-                            <li><a class="dropdown-item" href="paginaCompra.php">Carrinho</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -104,7 +145,7 @@
                     $total += $totalCarro;
                     ?>
                     <tr>
-                        <!-- <td><img src="img/cars/<?= $carro['imagem'] ?>" alt="<?= $carro['nome'] ?>" class="img-fluid" width="100"></td> -->
+                        <!-- <td><img src="img/perfil/<?= $carro['imagem'] ?>" alt="<?= $carro['nome'] ?>" class="img-fluid" width="100"></td> -->
                         <td><?= $carro['nome'] ?></td>
                         <td>R$ <?= number_format($preco, 2, '.', '.') ?></td>
                         <td><?= $quantidade ?></td>
@@ -116,7 +157,7 @@
         </div>
         <div class="text-end">
             <h3>Total: R$ <?= number_format($total, 2, '.', '.') ?></h3>
-            <button class="btn btn-success" type="submit" name="button">Finalizar Compra</button>
+            <button class="btn btn-success" type="submit" >Finalizar Compra</button>
         </div>
     </div>
 </main>
