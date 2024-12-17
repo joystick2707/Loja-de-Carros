@@ -1,24 +1,26 @@
 <?php
-    include "conexao.php";
+include "conexao.php";
 
-    $query = "SELECT carros.id, name, modelo, cor, descricao, preco, imagem FROM `carros` join brands on brands.id = carros.marca";
+$searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
+
+if ($searchTerm && $conn) {
+    $stmt = $conn->prepare("
+        SELECT carros.id, name, modelo, cor, descricao, preco, imagem 
+        FROM carros 
+        JOIN brands ON brands.id = carros.marca 
+        WHERE brands.name LIKE ? OR carros.modelo LIKE ?");
+    $likeSearchTerm = "%" . $searchTerm . "%";
+    $stmt->bind_param('ss', $likeSearchTerm, $likeSearchTerm);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $carros = $result->fetch_all(MYSQLI_ASSOC);
+} else {
+    $query = "SELECT carros.id, name, modelo, cor, descricao, preco, imagem 
+              FROM carros 
+              JOIN brands ON brands.id = carros.marca";
     $result = $conn->query($query);
-
-    if ($result->num_rows > 0) {
-        $carros = $result->fetch_all(MYSQLI_ASSOC);
-    } else {
-        $carros = [];
-    }
-
-    $searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
-
-    if ($conn) {
-        $stmt = $conn->prepare("SELECT * FROM carros WHERE  marca LIKE ? OR modelo LIKE ?");
-        $searchTerm = "%" . $searchTerm . "%";
-        $stmt->bind_param('ss', $searchTerm, $searchTerm, );
-        $stmt->execute();
-        $result = $stmt->get_result();
-    }
+    $carros = $result->num_rows > 0 ? $result->fetch_all(MYSQLI_ASSOC) : [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -151,7 +153,6 @@
     modal.addEventListener('show.bs.modal', function(event) {
         const button = event.relatedTarget;
         const nome = button.getAttribute('data-nome');
-        const modelo = button.getAttribute('data-modelo')
         const descricao = button.getAttribute('data-descricao');
         const preco = button.getAttribute('data-preco');
         const imagem = button.getAttribute('data-imagem');
