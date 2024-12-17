@@ -151,6 +151,7 @@
     modal.addEventListener('show.bs.modal', function(event) {
         const button = event.relatedTarget;
         const nome = button.getAttribute('data-nome');
+        const modelo = button.getAttribute('data-modelo')
         const descricao = button.getAttribute('data-descricao');
         const preco = button.getAttribute('data-preco');
         const imagem = button.getAttribute('data-imagem');
