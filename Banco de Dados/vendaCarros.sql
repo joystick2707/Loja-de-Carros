@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 16/12/2024 às 20:01
+-- Tempo de geração: 17/12/2024 às 16:34
 -- Versão do servidor: 8.0.40-0ubuntu0.24.04.1
 -- Versão do PHP: 8.3.6
 
@@ -258,14 +258,6 @@ CREATE TABLE `carrinho` (
   `preco` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Despejando dados para a tabela `carrinho`
---
-
-INSERT INTO `carrinho` (`id`, `nome`, `preco`) VALUES
-(39, 'Audi', 380000.00),
-(40, 'Audi', 220000.00);
-
 -- --------------------------------------------------------
 
 --
@@ -293,9 +285,12 @@ INSERT INTO `carros` (`id`, `marca`, `modelo`, `preco`, `descricao`, `cor`, `ima
 (41, '6', 'A4', '3000000.00', 'Sedan médio com motor 2.0 TFSI, tração integral quattro e acabamento refinado.', ' Azul Navarra', '../img/perfil/67585b7f68be1.jpeg'),
 (42, '6', 'Q5', '380000.00', 'SUV médio com foco em conforto e desempenho, equipado com tecnologia híbrida leve.', 'Cinza Manhattan', '../img/perfil/67585bac7a879.jpeg'),
 (43, '6', 'A6', '500000.00', 'Sedan executivo com motor 3.0 V6 TFSI, sistema de direção semiautônomo e amplo espaço interno.', 'Prata Florete', '../img/perfil/67585be6cfc0e.jpg'),
-(44, '20', 'Spider', '185000', 'O V8 4.5L naturalmente aspirado mais aclamado porque entrega incríveis 570 cv e 54 kgfm de torque', 'Branco', '../img/perfil/675c7aa9cc2bf.jpg'),
 (45, '13', 'C4 Cactus', '135000', 'SUV compacto com design robusto e opções de motorização turbo. Possui tecnologia de segurança avançada e conectividade.', 'Vermelho Aden', '../img/perfil/67607d619a4ed.jpeg'),
-(46, '13', ' C5 Aircross', '260000', 'SUV premium com suspensão avançada, espaço interno generoso e acabamento de alta qualidade. Equipado com tecnologias de condução semiautônoma.', 'Azul Tijuca', '../img/perfil/67607dc7393e3.jpg');
+(46, '13', ' C5 Aircross', '260000', 'SUV premium com suspensão avançada, espaço interno generoso e acabamento de alta qualidade. Equipado com tecnologias de condução semiautônoma.', 'Azul Tijuca', '../img/perfil/67607dc7393e3.jpg'),
+(47, '56', 'Corolla Cross XRE Hybrid', '170000', 'Um SUV compacto com tecnologia híbrida que combina motor a combustão e elétrico, garantindo economia de combustível e baixa emissão de poluentes. ', 'Prata', '../img/perfil/6761a6b145275.jpeg'),
+(48, '22', 'Mustang Mach-E', '4000000', 'm SUV totalmente elétrico, inspirado no icônico Mustang. Oferece desempenho esportivo com aceleração impressionante e autonomia de até 500 km por carga.', 'Cinza azulado', '../img/perfil/6761a6ec2a455.jpeg'),
+(49, '115', 'T-Cross 200 TSI', '135000', 'Um SUV compacto com motor turbo e excelente custo-benefício. Oferece conectividade avançada, sistema de segurança com frenagem autônoma e conforto para o dia a dia urbano.', 'Branco', '../img/perfil/6761a7205f442.png'),
+(50, '20', 'Spider', '700000', 'O V8 4.5L naturalmente aspirado mais aclamado porque entrega incríveis 570 cv e 54 kgfm de torque', 'Branco', '../img/perfil/6761a78247a9d.png');
 
 -- --------------------------------------------------------
 
@@ -330,7 +325,7 @@ INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipoUsuario`) VALUES
 (48, 'Camila Ramos', 'camila.ramos@yahoo.com.br', 'Ramos@#$123', 'Padrão'),
 (50, 'Rafael Martins', 'rafael.martins@gmail.com', 'SafePass2024!', 'Padrão'),
 (51, 'Vanessa Rocha', 'vanessa.rocha@gmail.com', '!RochaSecure789', 'Padrão'),
-(52, 'Gustavo Azevedo', 'gustavo.azevedo@outlook.com', 'Gust@vo456!', 'Padrão'),
+(52, 'Gustavo Azevedo', 'gustavo.azevedo@outlook.com', 'Gust@vo456!', 'ADM'),
 (53, 'Lara Cardoso', 'lara.cardoso@outlook.com', 'LaraC@rdoso2024', 'Padrão'),
 (54, 'Diego Pereira', 'diego.pereira@gmail.com', 'Die2024@Pass!', 'ADM'),
 (55, 'Patrícia Alves', 'patricia.alves@gmail.com', 'Alves1234#', 'Padrão'),
@@ -342,7 +337,8 @@ INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipoUsuario`) VALUES
 (61, 'Carolina Teixeira', 'carolina.teixeira@outlook.com', '@CaroT2024$', 'Padrão'),
 (62, 'Gabriel Medeiros', 'gabrield78964@gmail.com', '159753', 'ADM'),
 (63, 'Zaphir Camargo', 'zaphyr@gmail.com', '123654', 'ADM'),
-(64, 'Stefano Borges', 'botgestefano@gmail.com', '142536', 'Padrão');
+(64, 'Stefano Borges', 'botgestefano@gmail.com', '142536', 'Padrão'),
+(70, 'Adminsom', 'adminson@gmail.com', '123654', 'Padrão');
 
 --
 -- Índices para tabelas despejadas
@@ -386,19 +382,19 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de tabela `carros`
 --
 ALTER TABLE `carros`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
