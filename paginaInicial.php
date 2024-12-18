@@ -27,7 +27,7 @@ if ($searchTerm && $conn) {
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Página Inicial</title>
+    <title>Página-Inicial</title>
     <link id="themeLink" href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="icon" href="/img/perfil/car.png">
@@ -89,7 +89,7 @@ if ($searchTerm && $conn) {
                     <div class="card-body">
                         <img class="card-img-top" src="img/perfil/<?= basename($carro['imagem']) ?>" alt="foto do carro">
                         <h3 class="card-title"><?= $carro['name'] ?></h3>
-                        <h3 class="card-text"><?= $carro['modelo'] ?></h3>
+                        <h3 class="card-text" style="font-size: 15px;"><?= $carro['modelo'] ?></h3>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#carroModal"
                                 data-id="<?= $carro['id'] ?>" data-nome="<?= $carro['name'] ?>"
                                 data-descricao="<?= $carro['descricao'] ?>"
@@ -101,6 +101,9 @@ if ($searchTerm && $conn) {
         <?php endforeach; ?>
     </div>
 </main>
+<footer class="footer">
+
+</footer>
 
 <div class="modal fade" id="carroModal" tabindex="-1" aria-labelledby="carroModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-wide modal-dialog-centered">
