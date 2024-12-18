@@ -80,7 +80,7 @@
     }
 
 
-// remove um item especifico do carrinho
+    // remove um item especifico do carrinho
     if (isset($_GET['id'])) {
         $idCarro = (int)$_GET['id'];
         $excluiCarrinho = "DELETE FROM carrinho WHERE id = $idCarro";
@@ -133,7 +133,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link id="themeLink" href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="src/style/paginaCompra.css">
 </head>
 <body>
 <header class="header">
@@ -200,6 +199,7 @@
                         <td>R$ <?= number_format($preco, 2, '.', '.') ?></td>
                         <td><?= $quantidade ?></td>
                         <td><a href="paginaCompra.php?id=<?= $carro['id'] ?>" class="btn btn-danger btn-sm">Remover</a></td>
+                        
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -209,8 +209,11 @@
             <button class="btn btn-info" type="submit" name="limparCarrinho">Limpar Carrinho</button>
             <button class="btn btn-success" type="submit" name="finalizar_compra">Finalizar Compra</button>
         </form>
-
-
+<!--        --><?php //if ($total > 0): ?>
+<!--            <div class="text-end me-5">-->
+<!--                <h4>Total da Compra: R$ --><?php //= number_format($total, 2, ',', '.') ?><!--</h4>-->
+<!--            </div>-->
+<!--        --><?php //endif; ?>
     </div>
 </main>
 
