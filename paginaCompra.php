@@ -1,7 +1,25 @@
 <?php
     include 'conexao.php';
 
-    // limpa o carrinho
+    //limpa carrinho
+    if(isset($_POST['limparCarrinho'])){
+        $sql = "DELETE FROM carrinho";
+        $resultado = $conn->query($sql);
+        echo "<script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                Swal.fire({
+                                    title: 'Carrinho Vazio!',
+                                    text: 'Carrinho esvaziado com sucesso!',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = 'paginaCompra.php';
+                                });
+                            });
+                          </script>";
+    }
+
+    // limpa o carrinho apos a compra
     if (isset($_POST['finalizar_compra'])) {
         // Verifica se há itens no carrinho
         $verificaCarrinho = "SELECT COUNT(*) AS total FROM carrinho";
@@ -115,6 +133,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link id="themeLink" href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
     <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/style/paginaCompra.css">
 </head>
 <body>
 <header class="header">
@@ -186,9 +205,11 @@
                 </tbody>
             </table>
         </div>
-        <form method="post" action="paginaCompra.php" style="margin-left: 88%;">
+        <form method="post" action="paginaCompra.php" style="margin-left: 76%; display: flex; gap: 10px;">
+            <button class="btn btn-info" type="submit" name="limparCarrinho">Limpar Carrinho</button>
             <button class="btn btn-success" type="submit" name="finalizar_compra">Finalizar Compra</button>
         </form>
+
 
     </div>
 </main>
