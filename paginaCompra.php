@@ -1,37 +1,68 @@
 <?php
     include 'conexao.php';
 
-    // retira todos os itens do carrinho
+    // limpa o carrinho
     if (isset($_POST['finalizar_compra'])) {
-        $sql = "DELETE FROM carrinho";
-        if ($conn->query($sql) === TRUE) {
-            echo "<script>
-                    window.onload = function() {
+        // Verifica se há itens no carrinho
+        $verificaCarrinho = "SELECT COUNT(*) AS total FROM carrinho";
+        $resultado = $conn->query($verificaCarrinho);
+
+        if ($resultado) {
+            $dados = $resultado->fetch_assoc();
+            $totalItens = (int)$dados['total'];
+
+            if ($totalItens > 0) {
+                $sql = "DELETE FROM carrinho";
+                if ($conn->query($sql) === TRUE) {
+                    echo "<script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                Swal.fire({
+                                    title: 'Compra Finalizada!',
+                                    text: 'Compra realizada com sucesso!',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = 'paginaCompra.php';
+                                });
+                            });
+                          </script>";
+                } else {
+                    echo "<script>
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: 'Ocorreu um erro ao finalizar a compra.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.location.href = 'paginaCompra.php';
+                            });
+                          </script>";
+                }
+            } else {
+                // Se o carrinho estiver vazio
+                echo "<script>
                         Swal.fire({
-                            title: 'Compra Finalizada!',
-                            text: 'Seu carrinho foi esvaziado com sucesso!',
-                            icon: 'success',
+                            title: 'Carrinho Vazio!',
+                            text: 'Não há itens no carrinho para finalizar a compra.',
+                            icon: 'warning',
                             confirmButtonText: 'OK'
-                        }).then(() => {
-                            window.location.href = 'paginaCompra.php';
                         });
-                    }
-                  </script>";
+                      </script>";
+            }
         } else {
             echo "<script>
                     Swal.fire({
                         title: 'Erro!',
-                        text: 'Ocorreu um erro ao finalizar a compra.',
+                        text: 'Não foi possível verificar o carrinho.',
                         icon: 'error',
                         confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = 'paginaCompra.php';
                     });
                   </script>";
         }
     }
 
-    // remove um item especifico do carrinho
+
+// remove um item especifico do carrinho
     if (isset($_GET['id'])) {
         $idCarro = (int)$_GET['id'];
         $excluiCarrinho = "DELETE FROM carrinho WHERE id = $idCarro";
@@ -40,7 +71,7 @@
                     window.onload = function() {
                         Swal.fire({
                             title: 'Sucesso!',
-                            text: 'Veículo removido do carrinho com sucesso!',
+                            text: 'Veículo removido com sucesso!',
                             icon: 'success',
                             confirmButtonText: 'OK'
                         }).then(() => {
@@ -155,10 +186,10 @@
                 </tbody>
             </table>
         </div>
-        <div class="text-end">
-            <h3>Total: R$ <?= number_format($total, 2, '.', '.') ?></h3>
-            <button class="btn btn-success" type="submit" >Finalizar Compra</button>
-        </div>
+        <form method="post" action="paginaCompra.php" style="margin-left: 88%;">
+            <button class="btn btn-success" type="submit" name="finalizar_compra">Finalizar Compra</button>
+        </form>
+
     </div>
 </main>
 
