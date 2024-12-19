@@ -16,14 +16,14 @@ body {
 }
 
 .carrinho {
-    text-decoration: none; 
-    color: inherit; 
-    font-size: 16px; 
+    text-decoration: none;
+    color: inherit;
+    font-size: 16px;
 }
 
 .fa-cart-shopping {
-    font-size: 16px; 
-
+    font-size: 16px;
+}
 
 .row {
     margin-left: 0;
@@ -247,3 +247,13 @@ body {
     padding-top: 56px;
 }
 
+/*Pagina de sobre carossel*/
+.small-carousel {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.small-carousel img {
+    height: 300px;
+    object-fit: cover;
+}
