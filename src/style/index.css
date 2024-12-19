@@ -248,26 +248,68 @@ body {
 }
 
 /*Pagina de sobre carossel*/
-.small-carousel {
-    max-width: 600px;
-    margin: 20px auto;
+
+#carouselExampleCaptions {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
 }
 
-.small-carousel img {
-    height: 300px;
+/* Ajuste das imagens */
+#carouselExampleCaptions img {
     object-fit: cover;
+    height: 400px;
 }
 
-.carousel-inner img {
+/* Ajuste das imagens no carrossel */
+#carouselExampleCaptions img {
+    object-fit: contain;
     max-height: 300px;
-    object-fit: cover;
+    width: auto;
+    margin: 0 auto;
+    display: block;
 }
 
-.carousel-caption h5, .carousel-caption p {
-    color: black;
+/* Estilo das legendas */
+.carousel-caption h5 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #000;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
 }
 
+.carousel-caption p {
+    font-size: 1.2rem;
+    color: #333;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+/* Indicadores do carrossel */
+.carousel-indicators button {
+    background-color: #333;
+    border: 2px solid #fff;
+}
+
+.carousel-indicators .active {
+    background-color: #f00;
+}
+
+/* Setas de navegação */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     filter: invert(1);
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Texto acessível das setas */
+.carousel-control-prev .visually-hidden,
+.carousel-control-next .visually-hidden {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000;
 }
