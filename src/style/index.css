@@ -257,3 +257,17 @@ body {
     height: 300px;
     object-fit: cover;
 }
+
+.carousel-inner img {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.carousel-caption h5, .carousel-caption p {
+    color: black;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+}
