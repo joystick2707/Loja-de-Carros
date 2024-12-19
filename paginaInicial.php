@@ -1,26 +1,26 @@
 <?php
-include "conexao.php";
+    include "conexao.php";
 
-$searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
+    $searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
 
-if ($searchTerm && $conn) {
-    $stmt = $conn->prepare("
-        SELECT carros.id, name, modelo, cor, descricao, preco, imagem 
-        FROM carros 
-        JOIN brands ON brands.id = carros.marca 
-        WHERE brands.name LIKE ? OR carros.modelo LIKE ?");
-    $likeSearchTerm = "%" . $searchTerm . "%";
-    $stmt->bind_param('ss', $likeSearchTerm, $likeSearchTerm);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $carros = $result->fetch_all(MYSQLI_ASSOC);
-} else {
-    $query = "SELECT carros.id, name, modelo, cor, descricao, preco, imagem 
-              FROM carros 
-              JOIN brands ON brands.id = carros.marca";
-    $result = $conn->query($query);
-    $carros = $result->num_rows > 0 ? $result->fetch_all(MYSQLI_ASSOC) : [];
-}
+    if ($searchTerm && $conn) {
+        $stmt = $conn->prepare("
+            SELECT carros.id, name, modelo, cor, descricao, preco, imagem 
+            FROM carros 
+            JOIN brands ON brands.id = carros.marca 
+            WHERE brands.name LIKE ? OR carros.modelo LIKE ?");
+        $likeSearchTerm = "%" . $searchTerm . "%";
+        $stmt->bind_param('ss', $likeSearchTerm, $likeSearchTerm);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $carros = $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        $query = "SELECT carros.id, name, modelo, cor, descricao, preco, imagem 
+                  FROM carros 
+                  JOIN brands ON brands.id = carros.marca";
+        $result = $conn->query($query);
+        $carros = $result->num_rows > 0 ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ if ($searchTerm && $conn) {
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="icon" href="/img/perfil/car.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <script src="src/js/temaEscuro.js"></script>
 </head>
 <body>
 <header class="header">
@@ -71,10 +71,13 @@ if ($searchTerm && $conn) {
                     <i class="fa-solid fa-cart-shopping"></i>
                 </div>
 
+<!--                <a href="sobre.php">Sobre</a>-->
+
                 <form class="d-flex" role="search" method="POST">
                     <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" style="margin-left:10px">
                     <button type="submit" style="border: none; background: none"><i class="fa-solid fa-magnifying-glass fa-rotate-90" style="color: #74C0FC; margin-top: 2px"></i></button>
                 </form>
+
                 <a class="btn btn-outline-danger" href="login.php">Sair</a>
             </div>
         </div>
@@ -101,9 +104,6 @@ if ($searchTerm && $conn) {
         <?php endforeach; ?>
     </div>
 </main>
-<footer class="footer">
-
-</footer>
 
 <div class="modal fade" id="carroModal" tabindex="-1" aria-labelledby="carroModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-wide modal-dialog-centered">
@@ -120,7 +120,7 @@ if ($searchTerm && $conn) {
             </div>
             <div class="modal-footer">
                 <a href="listaVeiculos.php" class="btn btn-warning">Editar</a>
-                <div class="modal-footer">
+                <div class="modal-footer" style="border: none;">
                     <form method="POST" action="carrinho.php">
                         <input type="hidden" name="nome" id="hiddenNome">
                         <input type="hidden" name="preco" id="hiddenPreco">
@@ -148,7 +148,7 @@ if ($searchTerm && $conn) {
         }
     }
 </style>
-
+<script src="src/js/temaEscuro.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
