@@ -64,25 +64,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="img/perfil/6761a78247a9d.png" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>CARRO 01</h5>
-                    <p>DESCRIÇÃO DO PRIMEIRO CARRO</p>
-                </div>
+                <img src="img/perfil/6761a78247a9d.png" class="d-block w-100" alt="Ferrari Spider">
             </div>
             <div class="carousel-item">
                 <img src="img/perfil/67585bac7a879.jpeg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>CARRO 02</h5>
-                    <p>DESCRIÇÃO DO SEGUNDO CARRO</p>
-                </div>
             </div>
             <div class="carousel-item">
                 <img src="img/perfil/67585b5a6cc07.jpeg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>CARRO 03</h5>
-                    <p>DESCRIÇÃO DO TERCEIRO CARRO</p>
-                </div>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -95,7 +83,6 @@
         </button>
     </div>
 </main>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
