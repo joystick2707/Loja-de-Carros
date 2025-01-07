@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="src/style/index.css">
     <link rel="icon" href="/img/perfil/car.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="src/js/temaEscuro.js"></script>
 </head>
 <body>
 <header class="header">
@@ -29,7 +28,6 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="cadastroCarros.php">Cadastrar</a></li>
                             <li><a class="dropdown-item" href="listaVeiculos.php">Listar</a></li>
-
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -67,19 +65,19 @@
                 <img src="img/perfil/6761a78247a9d.png" class="d-block w-100" alt="Ferrari Spider">
             </div>
             <div class="carousel-item">
-                <img src="img/perfil/67585bac7a879.jpeg" class="d-block w-100" alt="...">
+                <img src="img/perfil/67585bac7a879.jpeg" class="d-block w-100" alt="Carro 2">
             </div>
             <div class="carousel-item">
-                <img src="img/perfil/67585b5a6cc07.jpeg" class="d-block w-100" alt="...">
+                <img src="img/perfil/67585b5a6cc07.jpeg" class="d-block w-100" alt="Carro 3">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">ANTERIOR</span>
+            <span class="visually-hidden">PREVIOUS</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">PROXIMO</span>
+            <span class="visually-hidden">NEXT</span>
         </button>
     </div>
 </main>
