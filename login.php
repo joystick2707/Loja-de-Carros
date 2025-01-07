@@ -11,7 +11,7 @@
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            header("Location: paginaInicial.php");
+            header("Location: index.php");
             exit();
         } else {
             echo "<script>
@@ -26,7 +26,6 @@
                   </script>";
         }
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -34,8 +33,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="src/style/index.css">
+
     <link href="https://bootswatch.com/5/zephyr/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -66,8 +66,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybU3fTtP07zvJ8f+ua7s/52bgguAsFjZfZ3Ff5zJ2p9Bz+zO2" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDPx8p5D9L5gb1SkOVYAtkQCiRrzF5jV6O1TgqU5PEo5+VoFq8iXQpXzX9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybU3fTtP07zvJ8f+ua7s/52bgguAsFjZfZ3Ff5zJ2p9Bz+zO2" crossorigin="anonymous"></script>
 </body>
 </html>
-
